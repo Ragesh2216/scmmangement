@@ -280,91 +280,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* About Section - Responsive */}
-      <section className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-pink-900/20"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-            <div className="animate-fade-in-left">
-              <div className="relative overflow-hidden bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 border border-white/20 transform hover:-translate-y-1 sm:hover:-translate-y-2 transition-all duration-500">
-                {/* Shimmer Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                
-                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-cyan-500 to-emerald-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white text-xl sm:text-2xl mb-4 sm:mb-6">
-                  🎯
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4 leading-tight">
-                  Global Supply Chain Expertise
-                </h2>
-                <h3 className="text-lg sm:text-xl text-cyan-300 font-semibold mb-3 sm:mb-4">
-                  We Help Businesses Scale Logistics Operations
-                </h3>
-                <p className="text-gray-300 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
-                  With decades of experience in global supply chain management, we provide innovative solutions that optimize logistics, reduce costs, and enhance operational efficiency across all touchpoints of your supply chain.
-                </p>
-
-                <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  {stats.map((stat, index) => (
-                    <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
-                      <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-cyan-400 mb-1">{stat.number}</div>
-                      <div className="text-xs sm:text-sm text-gray-400 leading-tight">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-lg sm:rounded-xl border border-emerald-500/30">
-                  <div className="text-xl sm:text-2xl">✅</div>
-                  <div>
-                    <h4 className="font-semibold text-emerald-300 text-sm sm:text-base">Global Network Partners</h4>
-                    <p className="text-emerald-200 text-xs sm:text-sm">Best Practices for Supply Chain Excellence</p>
-                  </div>
-                </div>
-
-                <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-cyan-500/20 rounded-lg sm:rounded-xl border border-cyan-500/30">
-                  <p className="text-cyan-300 font-semibold flex items-center gap-2 text-sm sm:text-base">
-                    <span>📞</span>
-                    Join our logistics network – partner with us.
-                  </p>
-                  <p className="text-cyan-200 mt-1 text-xs sm:text-sm">+1 (555) 123-LOGI</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="animate-fade-in-right mt-6 lg:mt-0">
-              <div className="bg-gradient-to-br from-cyan-500 to-emerald-600 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 text-white relative overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 text-4xl sm:text-6xl opacity-20">🌐</div>
-                
-                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🚀</div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Supply Chain Process</h3>
-                <h4 className="text-lg sm:text-xl mb-2">How we optimize your logistics</h4>
-                <p className="text-cyan-100 mb-4 sm:mb-6 text-sm sm:text-base">Grow and scale efficiently</p>
-                <p className="text-cyan-200 mb-6 sm:mb-8 text-sm sm:text-base">
-                  Our proven methodology ensures seamless integration of logistics, warehousing, and inventory management for maximum efficiency and cost savings.
-                </p>
-
-                <div className="space-y-4 sm:space-y-6">
-                  {processSteps.map((step, index) => (
-                    <div key={index} className="flex items-start gap-3 sm:gap-4 animate-fade-in-up" style={{ animationDelay: `${index * 200}ms` }}>
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white text-cyan-600 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-base sm:text-lg flex-shrink-0">
-                        {step.step}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h5 className="font-bold text-white mb-1 sm:mb-2 text-sm sm:text-base leading-tight">{step.title}</h5>
-                        <p className="text-cyan-200 text-xs sm:text-sm mb-2 sm:mb-3 leading-relaxed">{step.description}</p>
-                        <Link to="/404" className="inline-block bg-white text-cyan-600 hover:bg-gray-100 px-3 sm:px-4 py-1 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 transform hover:scale-105">
-                          {step.button}
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Quality Promise Section - Responsive */}
       <section className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 lg:px-8 relative overflow-hidden">
@@ -446,57 +362,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Case Studies Section - Responsive */}
-      <section className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 lg:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-cyan-900/20"></div>
-        
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📊</div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 sm:mb-4">Supply Chain Success Stories</h2>
-          <p className="text-gray-300 mb-8 sm:mb-12 max-w-xs sm:max-w-md md:max-w-2xl mx-auto text-sm sm:text-base">
-            Our Recent Logistics Transformations in the Market
-          </p>
-          <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base max-w-xs sm:max-w-lg md:max-w-3xl mx-auto">
-            Real-world implementations that demonstrate our ability to optimize supply chains, reduce costs, and improve efficiency across diverse industries.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-            {[
-              {
-                title: 'Global Logistics Network',
-                description: 'Implemented end-to-end logistics solution across 15 countries with 60% faster delivery times.',
-                icon: '🌍'
-              },
-              {
-                title: 'Warehouse Automation',
-                description: 'Deployed robotic automation reducing operational costs by 35% and improving accuracy to 99.9%.',
-                icon: '🏭'
-              },
-              {
-                title: 'Inventory Optimization',
-                description: 'AI-driven inventory management reducing stockouts by 80% and carrying costs by 25%.',
-                icon: '📦'
-              }
-            ].map((project, index) => (
-              <div
-                key={index}
-                className="relative overflow-hidden bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-white/20 hover:shadow-lg sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2 animate-fade-in-up group"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="w-full h-32 sm:h-36 md:h-48 bg-gradient-to-r from-cyan-400 to-emerald-500 rounded-lg sm:rounded-xl mb-3 sm:mb-4 flex items-center justify-center text-white text-4xl sm:text-5xl md:text-6xl">
-                  {project.icon}
-                </div>
-                <h3 className="font-bold text-white mb-1 sm:mb-2 group-hover:text-cyan-300 transition-colors duration-300 text-sm sm:text-base leading-tight">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       <WarehouseManagement/>
 

@@ -19,13 +19,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-gray-700">
         
         {/* Company Info */}
-        <div className="lg:col-span-1 text-center md:text-left">
-          <div className="flex justify-center md:justify-start">
-            <img src={logo} width={120} className="mb-4" alt="SupplyChain Pro" />
-          </div>
-          <p className="text-sm text-gray-400 leading-relaxed mb-4">
-            Your trusted partner for end-to-end supply chain solutions. We deliver cutting-edge logistics, inventory management, supplier network integration, and supply chain optimization services.
-          </p>
+<div className="lg:col-span-1 text-center md:text-left">
+  <div className="flex justify-center md:justify-start">
+    <h1 className="text-4xl lg:text-5xl font-bold text-blue-500 mb-4">Stackly</h1>
+  </div>
+  <p className="text-sm text-gray-400 leading-relaxed mb-4">
+    Your trusted partner for end-to-end supply chain solutions. We deliver cutting-edge logistics, inventory management, supplier network integration, and supply chain optimization services.
+  </p>
+
           <div className="flex justify-center md:justify-start space-x-4">
             {[
               { icon: <TwitterIcon className="hover:text-blue-400 transition-colors duration-200" />, url: "/404" },
