@@ -64,7 +64,7 @@ export default function Login() {
           {/* Left Side - SCM Illustration & Info */}
           <div className={`text-center lg:text-left transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl mt-16 font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-4">
                 {isLogin ? "Welcome Back" : "Join Our SCM Network"}
               </h1>
               <p className="text-xl text-gray-300 max-w-md mx-auto lg:mx-0">
@@ -116,7 +116,7 @@ export default function Login() {
           </div>
 
           {/* Right Side - Auth Form */}
-          <div className={`bg-gray-800 rounded-2xl mt-8 shadow-2xl p-8  lg:p-12 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} border border-gray-700`}>
+          <div className={`bg-gray-800 rounded-2xl mt-16 shadow-2xl p-8  lg:p-12 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} border border-gray-700`}>
             {/* Form Header */}
             <div className="text-center mb-8">
               <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -272,9 +272,7 @@ function Latest() {
               {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                  <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                    MOST POPULAR
-                  </span>
+                 
                 </div>
               )}
 
@@ -345,58 +343,7 @@ function Latest() {
           ))}
         </div>
 
-        {/* Features Comparison Table - Mobile Optimized */}
-        <div className="mb-12 min-[320px]:mb-16 lg:mb-20">
-          <div className="text-center mb-6 min-[320px]:mb-8 lg:mb-12">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 min-[320px]:mb-4 leading-tight">Compare All Features</h2>
-            <p className="text-gray-300 text-sm min-[320px]:text-base lg:text-lg max-w-xs min-[320px]:max-w-sm sm:max-w-md lg:max-w-2xl mx-auto leading-relaxed">
-              Detailed comparison of all features across our Supply Chain Management plans
-            </p>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-white/20 overflow-hidden">
-            <div className="overflow-x-auto">
-              <div className="grid grid-cols-4 gap-0 min-w-[600px]">
-                {/* Header Row */}
-                <div className="p-3 min-[320px]:p-4 sm:p-6 border-b border-white/10 bg-white/5">
-                  <h3 className="font-semibold text-white text-sm min-[320px]:text-base lg:text-lg">Features</h3>
-                </div>
-                {pricingPlans.map((plan) => (
-                  <div key={plan.id} className={`p-3 min-[320px]:p-4 sm:p-6 border-b border-white/10 text-center ${
-                    plan.popular ? "bg-cyan-500/10" : "bg-white/5"
-                  }`}>
-                    <h3 className="font-bold text-white text-sm min-[320px]:text-base lg:text-lg leading-tight">{plan.name}</h3>
-                  </div>
-                ))}
-
-                {/* Feature Rows */}
-                {featuresComparison.map((feature, index) => (
-                  <React.Fragment key={index}>
-                    <div className="p-3 min-[320px]:p-4 sm:p-5 border-b border-white/5 flex items-center">
-                      <span className="text-gray-300 text-xs min-[320px]:text-sm font-medium leading-tight">{feature.feature}</span>
-                    </div>
-                    {pricingPlans.map((plan, planIndex) => (
-                      <div key={planIndex} className={`p-3 min-[320px]:p-4 sm:p-5 border-b border-white/5 text-center flex items-center justify-center ${
-                        plan.popular ? "bg-cyan-500/5" : ""
-                      }`}>
-                        <span className={`text-xs min-[320px]:text-sm font-medium leading-tight ${
-                          feature[plan.name.toLowerCase()].startsWith('✓') 
-                            ? 'text-green-400' 
-                            : feature[plan.name.toLowerCase()].startsWith('✗')
-                            ? 'text-red-400'
-                            : 'text-gray-300'
-                        }`}>
-                          {feature[plan.name.toLowerCase()]}
-                        </span>
-                      </div>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
+        
         {/* Custom Enterprise Solution - Mobile Optimized */}
         <div className={`relative overflow-hidden rounded-xl sm:rounded-2xl p-4 min-[320px]:p-5 sm:p-6 lg:p-8 md:p-12 text-center text-white mb-8 min-[320px]:mb-12 lg:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/30 via-blue-600/30 to-purple-600/30"></div>
