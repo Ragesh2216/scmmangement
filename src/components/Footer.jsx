@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../images/logo.png";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -29,7 +29,7 @@ const Footer = () => {
 
           <div className="flex justify-center md:justify-start space-x-4">
             {[
-              { icon: <TwitterIcon className="hover:text-green-400 transition-colors duration-200" />, url: "/404" },
+              { icon: <FacebookIcon className="hover:text-green-400 transition-colors duration-200" />, url: "/404" },
               { icon: <LinkedInIcon className="hover:text-yellow-600 transition-colors duration-200" />, url: "/404" },
               { icon: <GitHubIcon className="hover:text-red-800 transition-colors duration-200" />, url: "/404" },
               { icon: <InstagramIcon className="hover:text-green-500 transition-colors duration-200" />, url: "/404" }
