@@ -143,11 +143,7 @@ const Home = () => {
   <div className="max-w-7xl mx-auto text-center relative z-10">
     <div className={`mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
       
-      {/* Animated Badge */}
-      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-500/30 px-6 py-3 rounded-full text-cyan-300 mb-8 animate-glow-pulse">
-        <span className="text-lg">🚀</span>
-        <span className="font-semibold">Transforming Global Supply Chains</span>
-      </div>
+     
 
       {/* Animated Main Heading */}
       <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-tight drop-shadow-2xl">

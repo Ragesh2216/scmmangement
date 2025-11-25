@@ -130,12 +130,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Operation Hours */}
-          <div className="mt-6 pt-6 border-t border-gray-700">
-            <p className="text-sm text-gray-300 font-medium mb-2">Operation Hours</p>
-            <p className="text-sm text-gray-400">24/7 Logistics Support</p>
-            <p className="text-sm text-gray-400">Mon - Sun: 00:00 - 23:59</p>
-          </div>
+         
         </div>
       </div>
 
