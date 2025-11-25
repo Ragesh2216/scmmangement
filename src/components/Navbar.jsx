@@ -15,8 +15,9 @@ const Navbar = () => {
 
   const toggleHomeDropdown = () => setIsHomeDropdownOpen(!isHomeDropdownOpen);
   const closeHomeDropdown = () => setIsHomeDropdownOpen(false);
-   const handleLogoClick = () => {
-    closeMenu(); // Close menu when logo is clicked
+  
+  const handleLogoClick = () => {
+    closeMenu();
   };
 
   useEffect(() => {
@@ -36,8 +37,8 @@ const Navbar = () => {
         ref={navRef}
         className="flex justify-between items-center px-4 sm:px-6 py-3 max-w-7xl mx-auto relative"
       >
-       {/* Logo - Added onClick handler */}
-       <div className="z-50">
+        {/* Logo */}
+        <div className="z-50">
           <Link 
             to="/" 
             onClick={handleLogoClick}
@@ -104,7 +105,8 @@ const Navbar = () => {
                   closeHomeDropdown();
                   closeMenu();
                 }}
-                 className="flex items-center justify-center lg:justify-start lg:mr-4"> 
+                className="flex items-center justify-center lg:justify-start lg:mr-4"
+              > 
                 Home
               </Link>
               <button
@@ -223,5 +225,5 @@ const Navbar = () => {
     </header>
   );
 };
- 
+
 export default Navbar;

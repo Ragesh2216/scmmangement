@@ -155,7 +155,7 @@ const ExploreServices = () => {
         </div>
 
         <div className="max-w-7xl mx-auto text-center relative z-10 w-full px-2">
-          <div className={`mb-6 sm:mb-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className={`mb-6 sm:mb-8 mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {/* Main Heading */}
             <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 sm:mb-8 leading-tight drop-shadow-2xl">
               <span className="block animate-slide-in-up text-2xl xs:text-3xl sm:text-4xl md:text-5xl">
