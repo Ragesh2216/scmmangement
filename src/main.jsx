@@ -32,7 +32,7 @@ const router = createBrowserRouter([
   },
   
    {
-    path: "/suppiler",
+    path: "/supply",
     element: <App element={<SupplierNetwork/>} />,
   },
   {

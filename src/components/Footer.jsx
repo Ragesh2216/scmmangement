@@ -51,7 +51,7 @@ const Footer = () => {
             {[
               { label: "Logistics Management", url: "/logi" },
               { label: "Inventory Optimization", url: "/inst" },
-              { label: "Supplier Network", url: "/supplier" },
+              { label: "Supplier Network", url: "/supply" },
               { label: "Warehouse Management", url: "/warehouse" },
              
             ].map((service, index) => (
