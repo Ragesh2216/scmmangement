@@ -225,9 +225,7 @@ function Latest() {
                 }`}
               >
                 Yearly
-                <span className="absolute -top-1 min-[320px]:-top-2 -right-1 min-[320px]:-right-2 bg-green-500 text-white text-xs px-1 min-[320px]:px-2 py-0.5 min-[320px]:py-1 rounded-full">
-                  Save {savings.yearly}%
-                </span>
+                
               </button>
             </div>
           </div>
@@ -302,11 +300,7 @@ function Latest() {
                       /{activeTab === "monthly" ? "month" : "year"}
                     </span>
                   </div>
-                  {activeTab === "yearly" && (
-                    <p className="text-green-400 text-xs min-[320px]:text-sm mt-2 min-[320px]:mt-3 font-medium">
-                      Save ${(plan.price.monthly * 12 - plan.price.yearly).toLocaleString()} annually
-                    </p>
-                  )}
+                 
                 </div>
 
                 {/* Features */}

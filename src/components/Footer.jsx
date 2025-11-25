@@ -29,10 +29,10 @@ const Footer = () => {
 
           <div className="flex justify-center md:justify-start space-x-4">
             {[
-              { icon: <TwitterIcon className="hover:text-blue-400 transition-colors duration-200" />, url: "/404" },
-              { icon: <LinkedInIcon className="hover:text-blue-600 transition-colors duration-200" />, url: "/404" },
-              { icon: <GitHubIcon className="hover:text-gray-100 transition-colors duration-200" />, url: "/404" },
-              { icon: <InstagramIcon className="hover:text-pink-500 transition-colors duration-200" />, url: "/404" }
+              { icon: <TwitterIcon className="hover:text-green-400 transition-colors duration-200" />, url: "/404" },
+              { icon: <LinkedInIcon className="hover:text-yellow-600 transition-colors duration-200" />, url: "/404" },
+              { icon: <GitHubIcon className="hover:text-red-800 transition-colors duration-200" />, url: "/404" },
+              { icon: <InstagramIcon className="hover:text-green-500 transition-colors duration-200" />, url: "/404" }
             ].map((social, index) => (
               <a
                 key={index}
