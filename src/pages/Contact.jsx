@@ -132,10 +132,7 @@ const Contact = () => {
       <main className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10">
         {/* Header Section */}
         <section className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-100 to-green-100 px-6 py-3 rounded-full mb-6 border border-blue-200/50">
-            <span className="text-blue-600 text-lg">📦</span>
-            <span className="text-blue-700 font-semibold text-sm">Optimize Your Supply Chain Today</span>
-          </div>
+         
           <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-green-600 to-emerald-600 bg-clip-text text-transparent mb-4 transition-all duration-1000 ${
             isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
           }`}>

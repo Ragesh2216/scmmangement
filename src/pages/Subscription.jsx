@@ -132,9 +132,7 @@ const PlanCard = ({ plan, onSelect, delay = 0 }) => {
       {/* Popular Badge */}
       {plan.popular && (
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-          <span className="bg-gradient-to-r from-green-500 to-emerald-600 text-white mt-8 px-4 py-1 rounded-full text-sm font-bold shadow-lg animate-pulse-slow">
-            Most Popular
-          </span>
+          
         </div>
       )}
 
