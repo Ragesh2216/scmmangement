@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import sakthi from '../images/sakthi.webp';
+import sakthi from '../images/www.webp';
 import abi from '../images/abi.webp';
-import dhara from '../images/dhara.webp';
+import dhara from '../images/soe.webp';
 import yuva from '../images/yuva.webp';
 import { Link, useNavigate } from "react-router-dom";
 
@@ -126,7 +126,7 @@ const About = () => {
       image: yuva
     },
     {
-      name: "Dr. Aisha Patel",
+      name: "Dr.Patel",
       role: "Supply Chain Analytics Lead",
       bio: "PhD in Supply Chain Management with focus on predictive analytics and optimization models.",
       expertise: ["Data Analytics", "Demand Forecasting", "Process Optimization"],
