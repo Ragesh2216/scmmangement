@@ -180,11 +180,9 @@ function Latest() {
               height: `${Math.random() * 60 + 20}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              background: `linear-gradient(45deg, ${
-                ['#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#84CC16', '#06B6D4', '#EF4444'][i % 8]
-              }, ${
-                ['#059669', '#2563EB', '#7C3AED', '#DB2777', '#D97706', '#65A30D', '#0891B2', '#DC2626'][(i + 4) % 8]
-              })`,
+              background: `linear-gradient(45deg, ${['#10B981', '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#84CC16', '#06B6D4', '#EF4444'][i % 8]
+                }, ${['#059669', '#2563EB', '#7C3AED', '#DB2777', '#D97706', '#65A30D', '#0891B2', '#DC2626'][(i + 4) % 8]
+                })`,
               animationDelay: `${Math.random() * 10}s`,
               animationDuration: `${Math.random() * 20 + 15}s`,
               filter: 'blur(12px)'
@@ -202,30 +200,28 @@ function Latest() {
           <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl text-gray-300 max-w-xs min-[320px]:max-w-sm sm:max-w-md lg:max-w-3xl mx-auto mb-8 min-[320px]:mb-10 lg:mb-12 leading-relaxed px-2">
             Choose the perfect plan to optimize your supply chain operations, reduce costs, and improve efficiency with AI-powered solutions.
           </p>
-          
+
           {/* Billing Toggle - Mobile Optimized */}
           <div className="flex justify-center items-center mb-8 min-[320px]:mb-10 lg:mb-16 px-2">
             <div className="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-lg sm:rounded-xl p-1 min-[320px]:p-1.5 border border-white/20">
               <button
                 onClick={() => setActiveTab("monthly")}
-                className={`px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-sm min-[320px]:text-base ${
-                  activeTab === "monthly"
+                className={`px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 text-sm min-[320px]:text-base ${activeTab === "monthly"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
                     : "text-gray-300 hover:text-white"
-                }`}
+                  }`}
               >
                 Monthly
               </button>
               <button
                 onClick={() => setActiveTab("yearly")}
-                className={`px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 relative text-sm min-[320px]:text-base ${
-                  activeTab === "yearly"
+                className={`px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-2.5 sm:py-3 rounded-lg font-semibold transition-all duration-300 relative text-sm min-[320px]:text-base ${activeTab === "yearly"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
                     : "text-gray-300 hover:text-white"
-                }`}
+                  }`}
               >
                 Yearly
-                
+
               </button>
             </div>
           </div>
@@ -238,7 +234,7 @@ function Latest() {
               { number: "50K+", label: "Shipments", color: "from-purple-500 to-pink-500" },
               { number: "40%", label: "Cost Reduction", color: "from-orange-500 to-amber-500" }
             ].map((stat, index) => (
-              <div 
+              <div
                 key={index}
                 className="text-center group cursor-pointer transform hover:scale-105 transition-all duration-500"
               >
@@ -258,11 +254,10 @@ function Latest() {
           {pricingPlans.map((plan, index) => (
             <div
               key={plan.id}
-              className={`group relative overflow-hidden rounded-xl sm:rounded-2xl backdrop-blur-sm border transition-all duration-500 transform hover:-translate-y-1 lg:hover:-translate-y-2 hover:shadow-xl flex flex-col h-full ${
-                plan.popular 
-                  ? "border-cyan-500/50 lg:scale-105 scale-100" 
+              className={`group relative overflow-hidden rounded-xl sm:rounded-2xl backdrop-blur-sm border transition-all duration-500 transform hover:-translate-y-1 lg:hover:-translate-y-2 hover:shadow-xl flex flex-col h-full ${plan.popular
+                  ? "border-cyan-500/50 lg:scale-105 scale-100"
                   : "border-white/20 hover:border-cyan-500/30"
-              }`}
+                }`}
               style={{
                 animationDelay: `${index * 200}ms`
               }}
@@ -270,16 +265,16 @@ function Latest() {
               {/* Popular Badge */}
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                 
+
                 </div>
               )}
 
               {/* Gradient Background */}
               <div className={`absolute inset-0 bg-gradient-to-br ${plan.color} opacity-10 group-hover:opacity-15 transition-opacity duration-500`}></div>
-              
+
               {/* Shimmer Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-              
+
               <div className="relative z-10 p-4 min-[320px]:p-5 sm:p-6 lg:p-8 flex flex-col flex-grow">
                 {/* Plan Header */}
                 <div className="text-center mb-4 min-[320px]:mb-5 lg:mb-8">
@@ -300,7 +295,7 @@ function Latest() {
                       /{activeTab === "monthly" ? "month" : "year"}
                     </span>
                   </div>
-                 
+
                 </div>
 
                 {/* Features */}
@@ -321,13 +316,12 @@ function Latest() {
 
                 {/* CTA Button */}
                 <div className="mt-auto">
-                  <Link 
+                  <Link
                     to={plan.link}
-                    className={`block w-full text-center py-2 min-[320px]:py-3 sm:py-4 px-4 min-[320px]:px-5 sm:px-6 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm min-[320px]:text-base ${
-                      plan.popular
+                    className={`block w-full text-center py-2 min-[320px]:py-3 sm:py-4 px-4 min-[320px]:px-5 sm:px-6 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm min-[320px]:text-base ${plan.popular
                         ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white hover:from-cyan-600 hover:to-blue-600 shadow-lg hover:shadow-xl"
                         : "bg-white/10 text-white backdrop-blur-sm border border-white/20 hover:bg-white/20"
-                    }`}
+                      }`}
                   >
                     {plan.cta}
                   </Link>
@@ -337,11 +331,11 @@ function Latest() {
           ))}
         </div>
 
-        
+
         {/* Custom Enterprise Solution - Mobile Optimized */}
         <div className={`relative overflow-hidden rounded-xl sm:rounded-2xl p-4 min-[320px]:p-5 sm:p-6 lg:p-8 md:p-12 text-center text-white mb-8 min-[320px]:mb-12 lg:mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/30 via-blue-600/30 to-purple-600/30"></div>
-          
+
           <div className="absolute inset-0">
             {[...Array(2)].map((_, i) => (
               <div
@@ -360,11 +354,13 @@ function Latest() {
           </div>
 
           <div className="relative z-10 max-w-4xl mx-auto">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 min-[320px]:mb-4 lg:mb-6 leading-tight">Need a Custom Solution?</h2>
-            <p className="text-cyan-100 text-sm min-[320px]:text-base lg:text-lg mb-4 min-[320px]:mb-5 lg:mb-8 max-w-xs min-[320px]:max-w-sm sm:max-w-md lg:max-w-2xl mx-auto leading-relaxed">
+            <h2 className="text-2xl min-[375px]:text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 min-[375px]:mb-4 lg:mb-6 leading-tight">
+              Need a Custom Solution?
+            </h2>
+            <p className="text-cyan-100 text-base min-[375px]:text-base lg:text-lg mb-5 min-[375px]:mb-5 lg:mb-8 max-w-xs min-[375px]:max-w-sm sm:max-w-md lg:max-w-2xl mx-auto leading-relaxed">
               Our enterprise team can build a tailored SCM solution for your specific business needs with custom integrations and dedicated support.
             </p>
-            <form onSubmit={handleContactSubmit} className="flex flex-col min-[320px]:flex-row gap-2 min-[320px]:gap-3 sm:gap-4 max-w-xs min-[320px]:max-w-sm sm:max-w-md mx-auto">
+            <form onSubmit={handleContactSubmit} className="flex flex-col gap-3 min-[375px]:gap-3 sm:gap-4 max-w-xs min-[375px]:max-w-sm sm:max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your work email"
@@ -372,27 +368,29 @@ function Latest() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
-                className="flex-1 px-3 min-[320px]:px-4 py-2 min-[320px]:py-3 sm:py-4 rounded-lg sm:rounded-xl border border-cyan-300/50 bg-white/10 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-cyan-200 disabled:opacity-50 text-sm min-[320px]:text-base"
+                className="w-full px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl border border-cyan-300/50 bg-white/10 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white placeholder-cyan-200 disabled:opacity-50 text-base min-[375px]:text-base"
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold hover:from-cyan-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none backdrop-blur-sm text-sm min-[320px]:text-base whitespace-nowrap"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-3 min-[375px]:py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold hover:from-cyan-600 hover:to-blue-600 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none backdrop-blur-sm text-base min-[375px]:text-base whitespace-nowrap"
               >
                 {isLoading ? (
-                  <div className="flex items-center space-x-2 justify-center">
-                    <div className="w-4 h-4 min-[320px]:w-5 min-[320px]:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-xs min-[320px]:text-sm">Contacting...</span>
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-sm">Contacting...</span>
                   </div>
                 ) : (
-                  "Contact Enterprise Team"
+                  <>
+                    <span className="block min-[375px]:inline">Contact</span>
+                    <span className="hidden min-[375px]:inline">&nbsp;Enterprise Team</span>
+                  </>
                 )}
               </button>
             </form>
             {message.text && (
-              <p className={`mt-3 min-[320px]:mt-4 text-sm min-[320px]:text-base font-medium ${
-                message.type === 'success' ? 'text-green-300' : 'text-red-300'
-              }`}>
+              <p className={`mt-4 text-base font-medium ${message.type === 'success' ? 'text-green-300' : 'text-red-300'
+                }`}>
                 {message.text}
               </p>
             )}
