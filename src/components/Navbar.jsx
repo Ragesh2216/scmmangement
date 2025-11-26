@@ -113,67 +113,64 @@ const Navbar = () => {
               > 
                 Home
               </Link>
-              
-              {/* Only show dropdown toggle button if NOT on homepage2 */}
-              {!isHomePage2 && (
-                <button
-                  onClick={toggleHomeDropdown}
-                  className="p-2 hover:bg-gray-100 lg:hover:bg-white/20 rounded-lg transition-colors duration-200"
+              <button
+                onClick={toggleHomeDropdown}
+                className="p-2 hover:bg-gray-100 lg:hover:bg-white/20 rounded-lg transition-colors duration-200"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-4 w-4 transition-transform duration-200 ${
+                    isHomeDropdownOpen ? "rotate-180" : ""
+                  }`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-4 w-4 transition-transform duration-200 ${
-                      isHomeDropdownOpen ? "rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </button>
-              )}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
             </div>
             
-            {/* Dropdown Menu - Only show if NOT on homepage2 */}
-            {!isHomePage2 && (
-              <div
-                className={`
-                  ${isHomeDropdownOpen ? "block" : "hidden"}
-                  lg:absolute
-                  top-full left-0 lg:left-0
-                  w-full lg:w-48
-                  bg-white
-                  border border-gray-200
-                  rounded-lg
-                  shadow-lg
-                  py-2
-                  z-50
-                  mt-1
-                `}
+            {/* Dropdown Menu */}
+            <div
+              className={`
+                ${isHomeDropdownOpen ? "block" : "hidden"}
+                lg:absolute
+                top-full left-0 lg:left-0
+                w-full lg:w-48
+                bg-white
+                border border-gray-200
+                rounded-lg
+                shadow-lg
+                py-2
+                z-50
+                mt-1
+              `}
+            >
+              <Link
+                to="/homepage2"
+                onClick={() => {
+                  closeHomeDropdown();
+                  closeMenu();
+                }}
+                className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
               >
-                <Link
-                  to="/homepage2"
-                  onClick={() => {
-                    closeHomeDropdown();
-                    closeMenu();
-                  }}
-                  className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
-                >
-                  Home2
-                </Link>
-              </div>
-            )}
+                Home2
+              </Link>
+            </div>
           </li>
 
           {/* Only show other navigation items if NOT on homepage2 */}
           {!isHomePage2 && (
             <>
+         
+  
+
               <li className="w-full lg:w-auto">
                 <Link
                   to="/dashboards"
