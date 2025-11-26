@@ -464,35 +464,68 @@ const InventoryOptimization = () => {
       </section>
 
       {/* ROI Calculator Preview - Mobile Optimized */}
-      <section className="py-8 min-[320px]:py-10 sm:py-12 lg:py-20 bg-gray-900 text-white">
-        <div className="max-w-4xl mx-auto px-3 min-[320px]:px-4 sm:px-6 lg:px-8 text-center">
+<section className="py-8 min-[320px]:py-10 sm:py-12 lg:py-20 bg-gray-900 text-white">
+  <div className="max-w-4xl mx-auto px-3 min-[320px]:px-4 sm:px-6 lg:px-8 text-center">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h3 className="text-lg min-[320px]:text-xl sm:text-2xl lg:text-3xl font-bold mb-3 min-[320px]:mb-4">Calculate Your Potential Savings</h3>
+      <p className="text-gray-400 mb-4 min-[320px]:mb-5 lg:mb-8 text-sm min-[320px]:text-base">See how much you can save with intelligent inventory optimization</p>
+      
+      {/* Updated Grid for Better Mobile Fit */}
+      <div className="grid grid-cols-1 min-[400px]:grid-cols-2 sm:grid-cols-3 gap-3 min-[320px]:gap-4 lg:gap-6 mt-4 min-[320px]:mt-5 lg:mt-8">
+        {[
+          { label: "Average Monthly Savings", value: "$15,000+", icon: "💰" },
+          { label: "Reduction in Stockouts", value: "85%", icon: "📉" },
+          { label: "ROI Timeline", value: "< 6 Months", icon: "⏱️" }
+        ].map((item, index) => (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            key={index}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-gray-800 rounded-lg sm:rounded-xl lg:rounded-2xl p-3 min-[320px]:p-3 sm:p-4 lg:p-6 min-h-[80px] flex flex-col justify-center"
           >
-            <h3 className="text-lg min-[320px]:text-xl sm:text-2xl lg:text-3xl font-bold mb-3 min-[320px]:mb-4">Calculate Your Potential Savings</h3>
-            <p className="text-gray-400 mb-4 min-[320px]:mb-5 lg:mb-8 text-sm min-[320px]:text-base">See how much you can save with intelligent inventory optimization</p>
-            
-            <div className="grid grid-cols-1 min-[320px]:grid-cols-3 gap-3 min-[320px]:gap-4 lg:gap-6 mt-4 min-[320px]:mt-5 lg:mt-8">
-              {[
-                { label: "Average Monthly Savings", value: "$15,000+" },
-                { label: "Reduction in Stockouts", value: "85%" },
-                { label: "ROI Timeline", value: "< 6 Months" }
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-gray-800 rounded-lg sm:rounded-xl lg:rounded-2xl p-3 min-[320px]:p-4 lg:p-6"
-                >
-                  <div className="text-lg min-[320px]:text-xl sm:text-2xl font-bold text-green-400 mb-1 min-[320px]:mb-2">{item.value}</div>
-                  <div className="text-gray-400 text-xs min-[320px]:text-sm leading-tight">{item.label}</div>
-                </motion.div>
-              ))}
+            <div className="flex items-center justify-center gap-2 mb-1 min-[320px]:mb-2">
+              <span className="text-sm">{item.icon}</span>
+              <div className="text-base min-[320px]:text-lg sm:text-xl font-bold text-green-400">{item.value}</div>
             </div>
+            <div className="text-gray-400 text-xs leading-tight px-1">{item.label}</div>
           </motion.div>
+        ))}
+      </div>
+
+      {/* Alternative Single Column Layout for Very Small Screens */}
+      <div className="mt-6 min-[400px]:hidden">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-4"
+        >
+          <div className="text-center">
+            <div className="text-green-400 text-lg font-bold mb-2">Quick ROI Estimate</div>
+            <div className="text-white text-sm">Most clients see 3-6x ROI within the first year</div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* CTA Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="mt-6 min-[320px]:mt-8"
+      >
+        <button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold text-sm min-[320px]:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg w-full min-[400px]:w-auto">
+          Get Detailed ROI Analysis
+        </button>
+      </motion.div>
+    </motion.div>
+              
+        
         </div>
       </section>
     </div>

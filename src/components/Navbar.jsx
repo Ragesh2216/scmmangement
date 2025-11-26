@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import logo from "../images/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const navRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => {
@@ -15,10 +16,13 @@ const Navbar = () => {
 
   const toggleHomeDropdown = () => setIsHomeDropdownOpen(!isHomeDropdownOpen);
   const closeHomeDropdown = () => setIsHomeDropdownOpen(false);
-  const [currentHomePage, setCurrentHomePage] = useState("home");
+
   const handleLogoClick = () => {
     closeMenu();
   };
+
+  // Check if we're on the homepage2 route
+  const isHomePage2 = location.pathname === "/homepage2";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -48,7 +52,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Mobile menu toggle */}
+        {/* Mobile menu toggle - Always show on mobile */}
         <div className="lg:hidden z-50">
           <button
             onClick={toggleMenu}
@@ -96,7 +100,7 @@ const Navbar = () => {
             transition-all duration-300 ease-in-out
           `}
         >
-          {/* Home Dropdown */}
+          {/* Home Dropdown - Always visible */}
           <li className="relative w-full lg:w-auto">
             <div className="flex items-center justify-center lg:justify-start lg:mr-2 lg:translate-x-4">
               <Link 
@@ -109,118 +113,128 @@ const Navbar = () => {
               > 
                 Home
               </Link>
-              <button
-                onClick={toggleHomeDropdown}
-                className="p-2 hover:bg-gray-100 lg:hover:bg-white/20 rounded-lg transition-colors duration-200"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`h-4 w-4 transition-transform duration-200 ${
-                    isHomeDropdownOpen ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+              
+              {/* Only show dropdown toggle button if NOT on homepage2 */}
+              {!isHomePage2 && (
+                <button
+                  onClick={toggleHomeDropdown}
+                  className="p-2 hover:bg-gray-100 lg:hover:bg-white/20 rounded-lg transition-colors duration-200"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-4 w-4 transition-transform duration-200 ${
+                      isHomeDropdownOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
             
-            {/* Dropdown Menu */}
-            <div
-              className={`
-                ${isHomeDropdownOpen ? "block" : "hidden"}
-                lg:absolute
-                top-full left-0 lg:left-0
-                w-full lg:w-48
-                bg-white
-                border border-gray-200
-                rounded-lg
-                shadow-lg
-                py-2
-                z-50
-                mt-1
-              `}
-            >
-             <Link
-  to={currentHomePage === "home2" ? "/" : "/homepage2"}
-  onClick={() => {
-    setCurrentHomePage(currentHomePage === "home2" ? "home" : "home2");
-    closeHomeDropdown();
-    closeMenu();
-  }}
-  className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
->
-  {currentHomePage === "home2" ? "Home" : "Home2"}
-</Link>
-            </div>
+            {/* Dropdown Menu - Only show if NOT on homepage2 */}
+            {!isHomePage2 && (
+              <div
+                className={`
+                  ${isHomeDropdownOpen ? "block" : "hidden"}
+                  lg:absolute
+                  top-full left-0 lg:left-0
+                  w-full lg:w-48
+                  bg-white
+                  border border-gray-200
+                  rounded-lg
+                  shadow-lg
+                  py-2
+                  z-50
+                  mt-1
+                `}
+              >
+                <Link
+                  to="/homepage2"
+                  onClick={() => {
+                    closeHomeDropdown();
+                    closeMenu();
+                  }}
+                  className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
+                >
+                  Home2
+                </Link>
+              </div>
+            )}
           </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/dashboards"
-              onClick={closeMenu}
-              className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
-            >
-              Dashboard
-            </Link>
-          </li>
+          {/* Only show other navigation items if NOT on homepage2 */}
+          {!isHomePage2 && (
+            <>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/dashboards"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+                >
+                  Dashboard
+                </Link>
+              </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/subscription"
-              onClick={closeMenu}
-              className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
-            >
-              Subscription
-            </Link>
-          </li>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/subscription"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+                >
+                  Subscription
+                </Link>
+              </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/about"
-              onClick={closeMenu}
-              className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
-            >
-              About us
-            </Link>
-          </li>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/about"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+                >
+                  About us
+                </Link>
+              </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/services"
-              onClick={closeMenu}
-              className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
-            >
-              Services
-            </Link>
-          </li>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/services"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+                >
+                  Services
+                </Link>
+              </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/contact"
-              onClick={closeMenu}
-              className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
-            >
-              Contact
-            </Link>
-          </li>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/contact"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+                >
+                  Contact
+                </Link>
+              </li>
 
-          <li className="w-full lg:w-auto">
-            <Link
-              to="/login"
-              onClick={closeMenu}
-              className="block text-center lg:text-left bg-white text-purple-700 hover:bg-gray-100 hover:text-purple-800 transition-colors duration-200 py-2 px-6 rounded-lg font-semibold w-full lg:w-auto"
-            >
-              Login
-            </Link>
-          </li>
+              <li className="w-full lg:w-auto">
+                <Link
+                  to="/login"
+                  onClick={closeMenu}
+                  className="block text-center lg:text-left bg-white text-purple-700 hover:bg-gray-100 hover:text-purple-800 transition-colors duration-200 py-2 px-6 rounded-lg font-semibold w-full lg:w-auto"
+                >
+                  Login
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
