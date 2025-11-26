@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const toggleHomeDropdown = () => setIsHomeDropdownOpen(!isHomeDropdownOpen);
   const closeHomeDropdown = () => setIsHomeDropdownOpen(false);
-  
+  const [currentHomePage, setCurrentHomePage] = useState("home");
   const handleLogoClick = () => {
     closeMenu();
   };
@@ -148,16 +148,17 @@ const Navbar = () => {
                 mt-1
               `}
             >
-              <Link
-                to="/homepage2"
-                onClick={() => {
-                  closeHomeDropdown();
-                  closeMenu();
-                }}
-                className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
-              >
-                Home2
-              </Link>
+             <Link
+  to={currentHomePage === "home2" ? "/" : "/homepage2"}
+  onClick={() => {
+    setCurrentHomePage(currentHomePage === "home2" ? "home" : "home2");
+    closeHomeDropdown();
+    closeMenu();
+  }}
+  className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
+>
+  {currentHomePage === "home2" ? "Home" : "Home2"}
+</Link>
             </div>
           </li>
 
