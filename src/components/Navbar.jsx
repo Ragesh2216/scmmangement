@@ -111,8 +111,10 @@ const Navbar = () => {
                 }}
                 className="flex items-center justify-center lg:justify-start lg:mr-4"
               > 
-                Home
+                {isHomePage2 ? "Home2" : "Home"}
               </Link>
+              
+              {/* Always show dropdown toggle button */}
               <button
                 onClick={toggleHomeDropdown}
                 className="p-2 hover:bg-gray-100 lg:hover:bg-white/20 rounded-lg transition-colors duration-200"
@@ -135,8 +137,8 @@ const Navbar = () => {
                 </svg>
               </button>
             </div>
-            
-            {/* Dropdown Menu */}
+
+            {/* Dropdown Menu - Always show, but with different content based on page */}
             <div
               className={`
                 ${isHomeDropdownOpen ? "block" : "hidden"}
@@ -153,14 +155,14 @@ const Navbar = () => {
               `}
             >
               <Link
-                to="/homepage2"
+                to={isHomePage2 ? "/" : "/homepage2"}
                 onClick={() => {
                   closeHomeDropdown();
                   closeMenu();
                 }}
                 className="block py-2 px-4 hover:bg-gray-100 hover:text-purple-700 transition-colors duration-200 text-center lg:text-left"
               >
-                Home2
+                {isHomePage2 ? "Home" : "Home2"}
               </Link>
             </div>
           </li>
@@ -168,9 +170,6 @@ const Navbar = () => {
           {/* Only show other navigation items if NOT on homepage2 */}
           {!isHomePage2 && (
             <>
-         
-  
-
               <li className="w-full lg:w-auto">
                 <Link
                   to="/dashboards"
