@@ -175,7 +175,7 @@ const Navbar = () => {
           </li>
 
           {/* Only show other navigation items if NOT on homepage2 */}
-          {!isHomePage2 && (
+          {!isHomePage2 ? (
             <>
               <li className="w-full lg:w-auto">
                 <Link
@@ -237,6 +237,17 @@ const Navbar = () => {
                 </Link>
               </li>
             </>
+          ) : (
+            // Show only the Latest link when on homepage2
+            <li className="w-full lg:w-auto">
+              <Link
+                to="/latest"
+                onClick={closeMenu}
+                className="block text-center lg:text-left py-2 px-4 rounded-lg hover:bg-gray-100 lg:hover:bg-white/20 hover:text-purple-700 w-full"
+              >
+                Pricing
+              </Link>
+            </li>
           )}
         </ul>
       </nav>

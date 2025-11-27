@@ -193,7 +193,7 @@ function Latest() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header Section - Mobile Optimized */}
-        <div className={`text-center mt-4 min-[320px]:mt-6 mb-8 min-[320px]:mb-12 lg:mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`text-center mt-4 min-[320px]:mt-12 mb-8 min-[320px]:mb-12 lg:mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h1 className="text-2xl min-[320px]:text-2xl min-[375px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 min-[320px]:mb-5 lg:mb-6 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent leading-tight px-2">
             Supply Chain Management Plans
           </h1>
