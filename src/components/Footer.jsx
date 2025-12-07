@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../images/logo.png";
+import { Link } from "react-router-dom"; // Import Link
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -11,36 +11,49 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
- 
-  
   return (
     <footer className="bg-gray-900 text-gray-300 py-12">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-gray-700">
         
         {/* Company Info */}
-<div className="lg:col-span-1 text-center md:text-left">
-  <div className="flex justify-center md:justify-start">
-    <h1 className="text-4xl lg:text-5xl font-bold text-blue-500 mb-4">Stackly</h1>
-  </div>
-  <p className="text-sm text-gray-400 leading-relaxed mb-4">
-    Your trusted partner for end-to-end supply chain solutions. We deliver cutting-edge logistics, inventory management, supplier network integration, and supply chain optimization services.
-  </p>
+        <div className="lg:col-span-1 text-center md:text-left">
+          <div className="flex justify-center md:justify-start">
+            <h1 className="text-4xl lg:text-5xl font-bold text-blue-500 mb-4">Stackly</h1>
+          </div>
+          <p className="text-sm text-gray-400 leading-relaxed mb-4">
+            Your trusted partner for end-to-end supply chain solutions. We deliver cutting-edge logistics, inventory management, supplier network integration, and supply chain optimization services.
+          </p>
 
+          {/* Social Icons linking to 404 */}
           <div className="flex justify-center md:justify-start space-x-4">
             {[
-              { icon: <FacebookIcon className="hover:text-green-400 transition-colors duration-200" />, url: "/404" },
-              { icon: <LinkedInIcon className="hover:text-yellow-600 transition-colors duration-200" />, url: "/404" },
-              { icon: <GitHubIcon className="hover:text-red-800 transition-colors duration-200" />, url: "/404" },
-              { icon: <InstagramIcon className="hover:text-green-500 transition-colors duration-200" />, url: "/404" }
+              { 
+                icon: <FacebookIcon className="hover:text-green-400 transition-colors duration-200" />, 
+                label: "Facebook"
+              },
+              { 
+                icon: <LinkedInIcon className="hover:text-yellow-600 transition-colors duration-200" />, 
+                label: "LinkedIn"
+              },
+              { 
+                icon: <GitHubIcon className="hover:text-red-800 transition-colors duration-200" />, 
+                label: "GitHub"
+              },
+              { 
+                icon: <InstagramIcon className="hover:text-green-500 transition-colors duration-200" />, 
+                label: "Instagram"
+              }
             ].map((social, index) => (
-              <a
+              <Link
                 key={index}
-                href={social.url}
+                to="/404"
                 className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200"
+                aria-label={social.label}
+                title={social.label}
               >
                 {social.icon}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -50,19 +63,18 @@ const Footer = () => {
           <h5 className="text-white text-lg font-semibold mb-6">SCM Services</h5>
           <ul className="space-y-3">
             {[
-              { label: "Logistics Management", url: "/logi" },
-              { label: "Inventory Optimization", url: "/inst" },
-              { label: "Supplier Network", url: "/supply" },
-              { label: "Warehouse Management", url: "/warehouse" },
-             
+              { label: "Logistics Management", url: "/404" },
+              { label: "Inventory Optimization", url: "/404" },
+              { label: "Supplier Network", url: "/404" },
+              { label: "Warehouse Management", url: "/404" }
             ].map((service, index) => (
               <li key={index}>
-                <a 
-                  href={service.url} 
+                <Link 
+                  to={service.url} 
                   className="text-gray-400 hover:text-green-400 transition-colors duration-200 text-sm font-normal block py-1"
                 >
                   {service.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -80,12 +92,12 @@ const Footer = () => {
               { label: "Login", url: "/login" }
             ].map((link, index) => (
               <li key={index}>
-                <a 
-                  href={link.url} 
+                <Link 
+                  to={link.url} 
                   className="text-gray-400 hover:text-green-400 transition-colors duration-200 text-sm font-normal block py-1"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -106,32 +118,28 @@ const Footer = () => {
             </div>
             
             <div className="flex justify-center md:justify-start">
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=MMR+COMPLEX,+Salem,+Tamil+Nadu+636008"
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                to="/404"
                 className="text-green-400 hover:text-green-300 underline text-sm"
               >
                 View on Google Maps
-              </a>
+              </Link>
             </div>
             
             <div className="flex justify-center md:justify-start items-center space-x-3">
               <PhoneIcon className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <a href="tel:+911234567890" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
+              <Link to="/404" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
                 +91 12345 67890
-              </a>
+              </Link>
             </div>
             
             <div className="flex justify-center md:justify-start items-center space-x-3">
               <EmailIcon className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <a href="mailto:info@supplychainpro.com" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
+              <Link to="/404" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
                 info@supplychainpro.com
-              </a>
+              </Link>
             </div>
           </div>
-
-         
         </div>
       </div>
 
@@ -153,13 +161,13 @@ const Footer = () => {
               { label: "Supply Chain Policy", url: "/404" },
               { label: "Sitemap", url: "/404" }
             ].map((link, index) => (
-              <a
+              <Link
                 key={index}
-                href={link.url}
+                to={link.url}
                 className="text-gray-400 hover:text-green-400 transition-colors duration-200"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

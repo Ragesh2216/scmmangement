@@ -133,21 +133,23 @@ const ExploreServices = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 overflow-hidden">
       {/* Hero Section - Mobile Optimized */}
       <section className="relative min-h-screen flex items-center justify-center pt-16 pb-8 min-[320px]:pb-10 sm:pb-12 px-3 min-[320px]:px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Enhanced Background */}
-        <div className="absolute inset-0">
-          <img
-            src="hero.png"
-            alt="AI Infrastructure Solutions"
-            className="w-full h-full object-cover object-center scale-110 animate-parallax-slow"
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/20 via-blue-500/15 to-emerald-400/10 animate-gradient-shift"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/30"></div>
+        {/* Enhanced Background - Fixed overflow */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="relative w-full h-full">
+            <img
+              src="hero.png"
+              alt="AI Infrastructure Solutions"
+              className="absolute inset-0 w-full h-full object-cover object-center scale-110 animate-parallax-slow"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-600/20 via-blue-500/15 to-emerald-400/10 animate-gradient-shift"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/30"></div>
+          </div>
         </div>
 
-        {/* Animated Background Elements - Reduced for Mobile */}
+        {/* Animated Background Elements - Fixed positioning */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-32 h-32 min-[320px]:w-40 min-[320px]:h-40 sm:w-96 sm:h-96 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full blur-xl sm:blur-3xl animate-float-orb-1"></div>
           <div className="absolute top-1/3 right-1/4 w-28 h-28 min-[320px]:w-36 min-[320px]:h-36 sm:w-80 sm:h-80 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-xl sm:blur-3xl animate-float-orb-2"></div>
@@ -328,7 +330,7 @@ const ExploreServices = () => {
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-6 min-[320px]:mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 min-[320px]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
+            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 min-[320box]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
               Trusted by Industry Leaders
             </h2>
             <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl text-gray-300 max-w-xs min-[320px]:max-w-sm sm:max-w-md md:max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
@@ -442,7 +444,7 @@ const ExploreServices = () => {
 
       {/* Final CTA Section - Mobile Optimized */}
       <section className="py-8 min-[320px]:py-10 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-r from-cyan-600 to-emerald-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-10 overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
         </div>
         
@@ -582,8 +584,10 @@ const ExploreServices = () => {
           }
         }
 
+        /* Fixed animations that might cause overflow */
         .animate-parallax-slow {
           animation: parallaxSlow 30s ease-in-out infinite;
+          will-change: transform;
         }
 
         .animate-gradient-shift {
@@ -598,14 +602,17 @@ const ExploreServices = () => {
 
         .animate-float-orb-1 {
           animation: floatOrb1 20s ease-in-out infinite;
+          will-change: transform;
         }
 
         .animate-float-orb-2 {
           animation: floatOrb2 25s ease-in-out infinite;
+          will-change: transform;
         }
 
         .animate-float-orb-3 {
           animation: floatOrb3 18s ease-in-out infinite;
+          will-change: transform;
         }
 
         .animate-fade-in-up {
@@ -664,37 +671,6 @@ const ExploreServices = () => {
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
-        }
-
-        /* Mobile-first responsive design */
-        @media (max-width: 639px) {
-          .leading-tight {
-            line-height: 1.2;
-          }
-          
-          .leading-relaxed {
-            line-height: 1.5;
-          }
-        }
-
-        /* Custom breakpoints */
-        @media (min-width: 320px) {
-          .min-\\[320px\\]\\:block { display: block; }
-          .min-\\[320px\\]\\:hidden { display: none; }
-          .min-\\[320px\\]\\:flex-row { flex-direction: row; }
-          .min-\\[320px\\]\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        }
-
-        @media (min-width: 375px) {
-          .min-\\[375px\\]\\:block { display: block; }
-        }
-
-        @media (min-width: 425px) {
-          .min-\\[425px\\]\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        }
-
-        @media (min-width: 480px) {
-          .min-\\[480px\\]\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
       `}</style>
     </div>

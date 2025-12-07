@@ -32,10 +32,8 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate API call and then navigate to 404
     setTimeout(() => {
       setIsLoading(false);
-      // Navigate to 404 page after form submission
       navigate('/404');
     }, 2000);
   };
@@ -58,40 +56,39 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
+    <div className="min-h-screen mt-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-3 overflow-x-hidden">
       <div className="w-full max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Left Side - SCM Illustration & Info */}
-          <div className={`text-center lg:text-left transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl mt-16 font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-4">
-                {isLogin ? "Welcome Back" : "Join Our SCM Network"}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+          {/* Left Side - SCM Illustration & Info - Hidden on very small screens */}
+          <div className={`hidden lg:block text-center lg:text-left transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
+            <div className="mb-6">
+              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent mb-3">
+                {isLogin ? "Welcome Back" : "Join Our SCM"}
               </h1>
-              <p className="text-xl text-gray-300 max-w-md mx-auto lg:mx-0">
+              <p className="text-base text-gray-300 max-w-md mx-auto lg:mx-0">
                 {isLogin 
-                  ? "Sign in to access your supply chain dashboard and manage your logistics."
-                  : "Create your account and optimize your supply chain operations with our platform."
+                  ? "Sign in to access your supply chain dashboard."
+                  : "Create your account and optimize operations."
                 }
               </p>
             </div>
 
             {/* SCM Features List */}
-            <div className="space-y-4 max-w-md mx-auto lg:mx-0">
+            <div className="space-y-3 max-w-md mx-auto lg:mx-0">
               {[
-                { icon: "🚚", text: "Real-time logistics tracking", color: "from-green-500 to-emerald-500" },
-                { icon: "📊", text: "Inventory management analytics", color: "from-blue-500 to-cyan-500" },
-                { icon: "🔗", text: "Supplier network integration", color: "from-teal-500 to-green-500" },
-                { icon: "⚡", text: "Automated order processing", color: "from-indigo-500 to-purple-500" }
+                { icon: "🚚", text: "Real-time tracking", color: "from-green-500 to-emerald-500" },
+                { icon: "📊", text: "Inventory analytics", color: "from-blue-500 to-cyan-500" },
+                { icon: "🔗", text: "Supplier network", color: "from-teal-500 to-green-500" },
+                { icon: "⚡", text: "Automated processing", color: "from-indigo-500 to-purple-500" }
               ].map((feature, index) => (
                 <div 
                   key={index}
-                  className="flex items-center gap-4 p-4 bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-all duration-500 transform hover:-translate-y-1 group border border-gray-700"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="flex items-center gap-3 p-3 bg-gray-800 rounded-lg hover:shadow-md transition-all duration-300 group border border-gray-700"
                 >
-                  <div className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center text-white text-xl group-hover:scale-110 transition-transform duration-300`}>
+                  <div className={`w-8 h-8 bg-gradient-to-r ${feature.color} rounded-lg flex items-center justify-center text-white text-base group-hover:scale-110 transition-transform duration-300`}>
                     {feature.icon}
                   </div>
-                  <span className="text-gray-300 font-medium group-hover:text-white transition-colors duration-300">
+                  <span className="text-gray-300 text-sm group-hover:text-white transition-colors duration-300">
                     {feature.text}
                   </span>
                 </div>
@@ -99,48 +96,48 @@ export default function Login() {
             </div>
 
             {/* SCM Stats */}
-            <div className="mt-12 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0">
+            <div className="mt-8 grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0">
               {[
                 { number: "5K+", label: "Suppliers" },
-                { number: "98%", label: "On-time Delivery" },
+                { number: "98%", label: "On-time" },
                 { number: "24/7", label: "Logistics" }
               ].map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+                  <div className="text-lg font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
                     {stat.number}
                   </div>
-                  <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+                  <div className="text-xs text-gray-400 mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right Side - Auth Form */}
-          <div className={`bg-gray-800 rounded-2xl mt-16 shadow-2xl p-8  lg:p-12 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} border border-gray-700`}>
+          <div className={`bg-gray-800 mt-16 rounded-xl lg:rounded-2xl shadow-lg p-4 lg:p-8 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'} border border-gray-700`}>
             {/* Form Header */}
-            <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl text-white">
+            <div className="text-center mt-16 mb-4">
+              <div className="w-14 h-14 lg:w-20 lg:h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-xl lg:text-2xl text-white">
                   {isLogin ? "📦" : "🌐"}
                 </span>
               </div>
-              <h2 className="text-3xl font-bold text-white mt-16 mb-2">
-                {isLogin ? "Sign In to SCM Portal" : "Create SCM Account"}
+              <h2 className="text-xl lg:text-3xl font-bold text-white mb-1">
+                {isLogin ? "Sign In" : "Create Account"}
               </h2>
-              <p className="text-gray-400">
+              <p className="text-gray-400 text-sm">
                 {isLogin 
-                  ? "Enter your credentials to access your supply chain dashboard"
-                  : "Register to connect with our global supply chain network"
+                  ? "Enter credentials to access dashboard"
+                  : "Register to connect with our network"
                 }
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Fields - Only for Signup */}
               {!isLogin && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in-up">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 animate-fade-in-up">
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="firstName" className="block text-xs font-medium text-gray-300 mb-1">
                       First Name *
                     </label>
                     <input
@@ -150,12 +147,12 @@ export default function Login() {
                       value={formData.firstName}
                       onChange={handleInputChange}
                       required={!isLogin}
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 hover:border-gray-500 placeholder-gray-400"
+                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-sm placeholder-gray-400"
                       placeholder="John"
                     />
                   </div>
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="lastName" className="block text-xs font-medium text-gray-300 mb-1">
                       Last Name *
                     </label>
                     <input
@@ -165,7 +162,7 @@ export default function Login() {
                       value={formData.lastName}
                       onChange={handleInputChange}
                       required={!isLogin}
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 hover:border-gray-500 placeholder-gray-400"
+                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-sm placeholder-gray-400"
                       placeholder="Doe"
                     />
                   </div>
@@ -174,7 +171,7 @@ export default function Login() {
 
               {/* Email Field */}
               <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-xs font-medium text-gray-300 mb-1">
                   Business Email *
                 </label>
                 <input
@@ -184,14 +181,14 @@ export default function Login() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 hover:border-gray-500 placeholder-gray-400"
-                  placeholder="your.email@company.com"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-sm placeholder-gray-400"
+                  placeholder="email@company.com"
                 />
               </div>
 
               {/* Password Field */}
               <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="password" className="block text-xs font-medium text-gray-300 mb-1">
                   Password *
                 </label>
                 <input
@@ -201,7 +198,7 @@ export default function Login() {
                   value={formData.password}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-700 border border-gray-600 text-white rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 hover:border-gray-500 placeholder-gray-400"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-sm placeholder-gray-400"
                   placeholder="••••••••"
                 />
               </div>
@@ -209,7 +206,7 @@ export default function Login() {
               {/* Confirm Password - Only for Signup */}
               {!isLogin && (
                 <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                  <label htmlFor="confirmPassword" className="block text-xs font-medium text-gray-300 mb-1">
                     Confirm Password *
                   </label>
                   <input
@@ -219,30 +216,30 @@ export default function Login() {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     required={!isLogin}
-                    className={`w-full px-4 py-3 bg-gray-700 border text-white rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 hover:border-gray-500 placeholder-gray-400 ${
+                    className={`w-full px-3 py-2 bg-gray-700 border text-white rounded-lg focus:ring-1 focus:ring-green-500 focus:border-green-500 transition-all duration-300 text-sm placeholder-gray-400 ${
                       formData.confirmPassword && formData.password !== formData.confirmPassword
-                        ? 'border-red-500 ring-2 ring-red-500/20'
+                        ? 'border-red-500'
                         : 'border-gray-600'
                     }`}
                     placeholder="••••••••"
                   />
                   {/* Error message */}
                   {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-                    <p className="text-red-400 text-xs mt-2 flex items-center">
-                      <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <p className="text-red-400 text-xs mt-1 flex items-center">
+                      <svg className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                       </svg>
-                      Passwords do not match
+                      Passwords don't match
                     </p>
                   )}
                 </div>
               )}
 
               {/* Checkboxes */}
-              <div className="space-y-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+              <div className="space-y-2 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
                 {isLogin ? (
-                  <div className="flex items-center justify-between">
-                    <Link to="/404" className="text-sm text-green-400 hover:text-green-300 transition-colors duration-300">
+                  <div className="text-right">
+                    <Link to="/404" className="text-xs text-green-400 hover:text-green-300 transition-colors duration-300">
                       Forgot password?
                     </Link>
                   </div>
@@ -254,16 +251,16 @@ export default function Login() {
                       checked={formData.agreeToTerms}
                       onChange={handleInputChange}
                       required
-                      className="w-4 h-4 text-green-500 bg-gray-700 border-gray-600 rounded focus:ring-green-500 mt-1 flex-shrink-0"
+                      className="w-3 h-3 text-green-500 bg-gray-700 border-gray-600 rounded focus:ring-green-500 mt-0.5 flex-shrink-0"
                     />
-                    <span className="ml-2 text-sm text-gray-300">
-                      I agree to the{" "}
+                    <span className="ml-2 text-xs text-gray-300">
+                      I agree to{" "}
                       <Link to="/404" className="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        Supply Chain Terms
-                      </Link>{" "}
-                      and{" "}
+                        Terms
+                      </Link>
+                      {" "}and{" "}
                       <Link to="/404" className="text-green-400 hover:text-green-300 transition-colors duration-300">
-                        Logistics Policy
+                        Policy
                       </Link>
                     </span>
                   </label>
@@ -274,21 +271,21 @@ export default function Login() {
               <button 
                 type="submit"
                 disabled={isLoading}
-                className={`w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center animate-fade-in-up ${
+                className={`w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white py-2 lg:py-3 px-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center animate-fade-in-up text-sm ${
                   isLoading ? 'animate-pulse' : ''
                 }`}
                 style={{ animationDelay: '500ms' }}
               >
                 {isLoading ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-2 h-3 w-3 lg:h-4 lg:w-4 text-white" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    {isLogin ? "Accessing SCM..." : "Joining Network..."}
+                    {isLogin ? "Accessing..." : "Joining..."}
                   </>
                 ) : (
-                  isLogin ? "Access SCM Portal" : "Join Supply Network"
+                  isLogin ? "Access Portal" : "Join Network"
                 )}
               </button>
 
@@ -297,32 +294,29 @@ export default function Login() {
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-600"></div>
                 </div>
-                <div className="relative flex justify-center text-sm">
+                <div className="relative flex justify-center text-xs">
                   <span className="px-2 bg-gray-800 text-gray-400">Or continue with</span>
                 </div>
               </div>
 
               {/* Social Login */}
-              <div className="grid grid-cols-2 gap-4 animate-fade-in-up" style={{ animationDelay: '700ms' }}>
+              <div className="grid grid-cols-2 gap-2 animate-fade-in-up" style={{ animationDelay: '700ms' }}>
                 <button
                   type="button"
                   onClick={() => navigate('/404')}
-                  className="w-full bg-gray-700 border border-gray-600 text-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="w-full bg-gray-700 border border-gray-600 text-gray-300 py-1.5 lg:py-2 px-2 rounded-lg font-medium hover:bg-gray-600 transition-all duration-300 flex items-center justify-center gap-1 text-xs"
                 >
-                  <svg className="w-5 h-5" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 lg:w-4 lg:h-4" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
                   Google
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate('/404')}
-                  className="w-full bg-gray-700 border border-gray-600 text-gray-300 py-3 px-4 rounded-xl font-medium hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="w-full bg-gray-700 border border-gray-600 text-gray-300 py-1.5 lg:py-2 px-2 rounded-lg font-medium hover:bg-gray-600 transition-all duration-300 flex items-center justify-center gap-1 text-xs"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 lg:w-4 lg:h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
                   </svg>
                   Twitter
@@ -331,12 +325,12 @@ export default function Login() {
 
               {/* Switch Auth Mode */}
               <div className="text-center animate-fade-in-up" style={{ animationDelay: '800ms' }}>
-                <p className="text-gray-400">
-                  {isLogin ? "New to our supply chain? " : "Already part of our network? "}
+                <p className="text-gray-400 text-xs">
+                  {isLogin ? "New to supply chain? " : "Already part? "}
                   <button
                     type="button"
                     onClick={toggleAuthMode}
-                    className="text-green-400 hover:text-green-300 font-semibold transition-colors duration-300"
+                    className="text-green-400 hover:text-green-300 font-semibold transition-colors duration-300 text-xs"
                   >
                     {isLogin ? "Join network" : "Sign in"}
                   </button>
@@ -349,18 +343,18 @@ export default function Login() {
 
       {/* Background Animation */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-        {[...Array(15)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
             className="absolute rounded-full animate-float opacity-10"
             style={{
-              width: `${Math.random() * 10 + 5}px`,
-              height: `${Math.random() * 10 + 5}px`,
+              width: `${Math.random() * 8 + 3}px`,
+              height: `${Math.random() * 8 + 3}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              backgroundColor: ['#10B981', '#3B82F6', '#06B6D4', '#059669', '#1D4ED8'][i % 5],
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${Math.random() * 20 + 10}s`
+              backgroundColor: ['#10B981', '#3B82F6', '#06B6D4', '#059669'][i % 4],
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${Math.random() * 15 + 8}s`
             }}
           />
         ))}
@@ -370,7 +364,7 @@ export default function Login() {
         @keyframes fadeInUp {
           0% {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
           }
           100% {
             opacity: 1;
@@ -379,21 +373,56 @@ export default function Login() {
         }
         @keyframes float {
           0%, 100% {
-            transform: translateY(0px) translateX(0px) rotate(0deg);
+            transform: translateY(0px) translateX(0px);
           }
           33% {
-            transform: translateY(-20px) translateX(10px) rotate(120deg);
+            transform: translateY(-15px) translateX(8px);
           }
           66% {
-            transform: translateY(10px) translateX(-10px) rotate(240deg);
+            transform: translateY(8px) translateX(-8px);
           }
         }
         .animate-fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
+          animation: fadeInUp 0.6s ease-out forwards;
           opacity: 0;
         }
         .animate-float {
-          animation: float 15s ease-in-out infinite;
+          animation: float 12s ease-in-out infinite;
+        }
+        
+        /* 320px specific fixes */
+        @media (max-width: 320px) {
+          .text-xl {
+            font-size: 1.125rem !important;
+          }
+          .text-sm {
+            font-size: 0.75rem !important;
+          }
+          .text-xs {
+            font-size: 0.65rem !important;
+          }
+          .p-4 {
+            padding: 0.75rem !important;
+          }
+          .px-3 {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+          }
+          .py-2 {
+            padding-top: 0.375rem !important;
+            padding-bottom: 0.375rem !important;
+          }
+          input, select, button {
+            font-size: 0.75rem !important;
+            min-height: 36px !important;
+          }
+        }
+        
+        /* Better touch targets */
+        @media (max-width: 768px) {
+          input, select, button {
+            min-height: 38px;
+          }
         }
       `}</style>
     </div>
