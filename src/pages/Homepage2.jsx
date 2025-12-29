@@ -1,5 +1,5 @@
 import React from "react";
-import Latest from "../pages/Latest";
+
 import ExploreServices from "../components/ExploreServices";
 
 const Homepage2 = () => {
@@ -10,7 +10,7 @@ const Homepage2 = () => {
                 <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
                     <ExploreServices />
                     
-                    <Latest />
+                    
                 </div>
             </div>
         </div>

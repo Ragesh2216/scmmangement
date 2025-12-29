@@ -1,1027 +1,945 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import ai from '../images/ai.webp';
-import aiint from '../images/aiint.webp';
-import cloud from '../images/cloud.webp';
-import scale from '../images/scale.webp';
-import secuter from '../images/secuter.webp';
-import speed from '../images/speed.webp';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import { 
+  LocalShipping, 
+  Inventory, 
+  Analytics, 
+  Timeline, 
+  Speed, 
+  Security, 
+  Cloud,
+  TrendingUp,
+  CheckCircle,
+  Factory,
+  Store,
+  Public,
+  Devices
+} from '@mui/icons-material';
 
 const ExploreServices = () => {
-  const [activeSlide, setActiveSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const sectionRefs = useRef([]);
+  const heroRef = useRef(null);
+  const servicesRef = useRef(null);
+  const featuresRef = useRef(null);
+  const statsRef = useRef(null);
+  const ctaRef = useRef(null);
+  
+  // Scroll animations
+  const { scrollYProgress } = useScroll();
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
+  const servicesY = useTransform(scrollYProgress, [0.1, 0.3], [100, 0]);
+  const featuresOpacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
 
-  // Scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+  // Animated counters
+  const [clients, setClients] = useState(0);
+  const [deliveryRate, setDeliveryRate] = useState(0);
+  const [costReduction, setCostReduction] = useState(0);
+  const [countries, setCountries] = useState(0);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Intersection Observer for scroll animations
   useEffect(() => {
     setIsVisible(true);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in-view');
+    
+    // Animate counters
+    const animateCounters = () => {
+      const duration = 2000;
+      const steps = 60;
+      
+      const animate = (setter, target, suffix = '') => {
+        let start = 0;
+        const step = target / steps;
+        const timer = setInterval(() => {
+          start += step;
+          if (start >= target) {
+            setter(target + suffix);
+            clearInterval(timer);
+          } else {
+            setter(Math.floor(start) + suffix);
           }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px',
+        }, duration / steps);
+      };
+      
+      animate(setClients, 500, '+');
+      animate(setDeliveryRate, 99.9, '%');
+      animate(setCostReduction, 40, '%');
+      animate(setCountries, 80, '+');
+    };
+
+    animateCounters();
+
+    // Parallax effect
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      
+      document.querySelectorAll('.parallax-layer').forEach((el, i) => {
+        const depth = (i + 1) * 0.5;
+        el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+      });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  const coreServices = [
+    {
+      icon: <LocalShipping />,
+      title: 'Smart Logistics',
+      description: 'AI-optimized route planning, real-time tracking, and multi-modal transportation management',
+      gradient: 'from-blue-500 to-cyan-500',
+      features: ['Route Optimization', 'Real-time Tracking', 'Fleet Management', 'Carrier Integration'],
+      stats: '60% Faster Delivery'
+    },
+    {
+      icon: <Inventory />,
+      title: 'Warehouse Automation',
+      description: 'Advanced WMS with robotics, IoT sensors, and automated inventory management',
+      gradient: 'from-purple-500 to-pink-500',
+      features: ['Robotic Automation', 'Smart Shelving', 'IoT Integration', 'Automated Sorting'],
+      stats: '99.9% Accuracy'
+    },
+    {
+      icon: <Analytics />,
+      title: 'Predictive and  Analytics',
+      description: 'AI-driven demand forecasting, risk prediction, and supply chain optimization',
+      gradient: 'from-green-500 to-emerald-500',
+      features: ['Demand Forecasting', 'Risk Analytics', 'Scenario Planning', 'Performance Insights'],
+      stats: '30% Better Forecasts'
+    },
+    {
+      icon: <Timeline />,
+      title: 'End-to-End Visibility',
+      description: 'Real-time tracking across suppliers, manufacturers, distributors, and retailers',
+      gradient: 'from-orange-500 to-red-500',
+      features: ['Supplier Portal', 'Manufacturing Insights', 'Distribution Tracking', 'Retail Analytics'],
+      stats: 'Real-time Monitoring'
+    }
+  ];
+
+  const supplyChainFeatures = [
+    {
+      title: 'Digital Twin Technology',
+      description: 'Virtual replica of your supply chain for simulation and optimization',
+      icon: <Devices />,
+      color: 'text-blue-400'
+    },
+    {
+      title: 'Blockchain Traceability',
+      description: 'Immutable records for complete product traceability and compliance',
+      icon: <Security />,
+      color: 'text-purple-400'
+    },
+    {
+      title: 'IoT and  ai Integration',
+      description: 'Real-time data from sensors across the entire supply chain network',
+      icon: <Cloud />,
+      color: 'text-cyan-400'
+    },
+    {
+      title: 'Sustainability Analytics',
+      description: 'Carbon footprint tracking and sustainable logistics optimization',
+      icon: <Public />,
+      color: 'text-emerald-400'
+    }
+  ];
+
+  const industrySolutions = [
+    {
+      name: 'Manufacturing',
+      icon: '🏭',
+      challenges: ['Raw Material Sourcing', 'Production Scheduling', 'Quality Control'],
+      benefits: ['30% Faster Production', '25% Cost Reduction', 'Zero Defects']
+    },
+    {
+      name: 'Retail & E-commerce',
+      icon: '🛒',
+      challenges: ['Last-mile Delivery', 'Inventory Synchronization', 'Returns Management'],
+      benefits: ['Same-day Delivery', '95% Stock Accuracy', '30% Lower Returns']
+    },
+    {
+      name: 'Healthcare',
+      icon: '🏥',
+      challenges: ['Cold Chain Management', 'Regulatory Compliance', 'Emergency Supply'],
+      benefits: ['100% Compliance', 'Real-time Tracking', 'Emergency Response']
+    },
+    {
+      name: 'Automotive',
+      icon: '🚗',
+      challenges: ['Just-in-Time Delivery', 'Global Sourcing', 'Quality Assurance'],
+      benefits: ['Zero Delays', 'Global Integration', 'Quality Assurance']
+    }
+  ];
+
+  const stats = [
+    { value: clients, label: 'Global Clients', icon: '🌍', color: 'from-blue-400 to-cyan-400' },
+    { value: deliveryRate, label: 'On-time Delivery', icon: '⏱️', color: 'from-emerald-400 to-teal-400' },
+    { value: costReduction, label: 'Cost Reduction', icon: '💰', color: 'from-purple-400 to-pink-400' },
+    { value: countries, label: 'Countries Served', icon: '📍', color: 'from-orange-400 to-red-400' }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
       }
-    );
-
-    sectionRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Auto-slide interval
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Enhanced color scheme
-  const colors = {
-    primary: 'from-fuchsia-600 to-purple-700',
-    secondary: 'from-rose-500 to-pink-600',
-    accent: 'from-violet-500 to-purple-600',
-    success: 'from-emerald-500 to-teal-600',
-    info: 'from-cyan-500 to-blue-600',
-    warning: 'from-amber-500 to-orange-600',
-    dark: 'from-slate-900 to-gray-900',
+    }
   };
 
-  const slides = [
-    {
-      id: 1,
-      title: "AI Supercluster",
-      description: "Massive new supercluster with next-generation NVIDIA GPUs and high-performance computing",
-      icon: "⚡",
-      color: colors.accent,
-      image: ai
-    },
-    {
-      id: 2,
-      title: "High-Speed Networking",
-      description: "Advanced RDMA networking with ultra-low latency for distributed AI training",
-      icon: "🔗",
-      color: colors.info,
-      image: speed
-    },
-    {
-      id: 3,
-      title: "Multicloud Flexibility",
-      description: "Seamless integration across cloud environments with unified licensing",
-      icon: "☁️",
-      color: colors.primary,
-      image: cloud
-    },
-    {
-      id: 4,
-      title: "AI Infrastructure",
-      description: "Purpose-built infrastructure optimized for machine learning workloads",
-      icon: "🤖",
-      color: colors.success,
-      image: aiint
-    },
-    {
-      id: 5,
-      title: "Performance Scaling",
-      description: "Linear scaling across thousands of GPUs for massive AI models",
-      icon: "📈",
-      color: colors.warning,
-      image: scale
-    },
-    {
-      id: 6,
-      title: "Enterprise Security",
-      description: "Zero-trust architecture with end-to-end encryption and compliance",
-      icon: "🛡️",
-      color: colors.secondary,
-      image: secuter
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
     }
-  ];
+  };
 
-  const customerStories = [
-    {
-      id: 1,
-      company: "Omega Healthcare",
-      title: "Manages growth and M&A with Oracle Fusion Cloud Applications",
-      description: "The healthcare solutions provider integrates multiple acquisitions and unifies technology and processes.",
-      link: "/404",
-      industry: "Healthcare",
-      icon: "🏥",
-      color: colors.info,
-    },
-    {
-      id: 2,
-      company: "MACOM",
-      title: "Sees faster loan approvals and business reporting with OCI",
-      description: "The IT services firm speeds up loan application reviews and business reports.",
-      link: "/404",
-      industry: "Financial Services",
-      icon: "💳",
-      color: colors.success,
-    },
-    {
-      id: 3,
-      company: "Panasonic Electric Works India",
-      title: "Improves customer satisfaction with Oracle Cloud",
-      description: "India's leading provider of electrical systems migrates to cloud infrastructure.",
-      link: "/404",
-      industry: "Manufacturing",
-      icon: "🏭",
-      color: colors.primary,
-    },
-    {
-      id: 4,
-      company: "Uber",
-      title: "Relies on Oracle Cloud to deliver on promises to its customers",
-      description: "Global ride-sharing platform leverages cloud for scalable infrastructure.",
-      link: "/404",
-      industry: "Technology",
-      icon: "🚗",
-      color: colors.warning,
+  const floatAnimation = {
+    y: [0, -15, 0],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut"
     }
-  ];
+  };
 
-  const services = [
-    {
-      title: "Cloud Applications",
-      description: "A complete suite of cloud applications delivering consistent processes and data across your business",
-      icon: "📊",
-      link: "/services",
-      color: colors.accent,
-      image: cloud
-    },
-    {
-      title: "Cloud Infrastructure",
-      description: "An automated, secure platform for migrating enterprise workloads and building new cloud native apps",
-      icon: "⚙️",
-      link: "/services",
-      color: colors.primary,
-      image: aiint
+  const pulseAnimation = {
+    scale: [1, 1.05, 1],
+    transition: {
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut"
     }
-  ];
-
-  // Parallax effect function
-  const parallaxStyle = (speed = 0.5) => ({
-    transform: `translateY(${scrollY * speed}px)`,
-  });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-fuchsia-900 overflow-hidden">
-      {/* Enhanced Hero Section with Parallax */}
-      <section 
-        ref={el => sectionRefs.current[0] = el}
-        className="relative min-h-screen flex items-center justify-center pt-16 pb-8 min-[320px]:pb-10 sm:pb-12 px-3 min-[320px]:px-4 sm:px-6 lg:px-8 overflow-hidden"
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 overflow-x-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        {/* Gradient Orbs */}
+        <motion.div
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            rotate: [0, 360]
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl parallax-layer"
+        />
+        <motion.div
+          animate={{
+            x: [0, -100, 0],
+            y: [0, -50, 0],
+            rotate: [360, 0]
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl parallax-layer"
+        />
+        
+        {/* Network Lines */}
+        <svg className="absolute inset-0 w-full h-full opacity-10">
+          {[...Array(15)].map((_, i) => (
+            <motion.path
+              key={i}
+              d={`M${i * 100},0 Q${i * 100 + 50},${100 + i * 30} ${i * 100 + 100},200`}
+              stroke="url(#network-gradient)"
+              strokeWidth="1"
+              fill="transparent"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 0.1 }}
+              transition={{ duration: 2, delay: i * 0.1 }}
+            />
+          ))}
+          <defs>
+            <linearGradient id="network-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#8b5cf6" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Hero Section */}
+      <motion.section
+        ref={heroRef}
+        style={{ scale: heroScale, opacity: heroOpacity }}
+        className="relative min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
       >
-        {/* Enhanced Background with multiple layers */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Base gradient layer */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-fuchsia-900"></div>
-          
-          {/* Animated gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-600/30 via-purple-600/20 to-rose-600/30 animate-gradient-pan"></div>
-          
-          {/* Particle effect */}
-          <div className="absolute inset-0 particle-container">
-            {[...Array(30)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 bg-white rounded-full animate-float-particle"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  opacity: Math.random() * 0.5 + 0.1,
+        {/* Animated Supply Chain Visualization */}
+        <div className="absolute inset-0">
+          {/* Floating Supply Chain Elements */}
+          {['🏭', '🚚', '📦', '🛒', '🌐', '⚡', '🔗', '📊'].map((icon, i) => (
+            <motion.div
+              key={i}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, Math.sin(i) * 25, 0],
+                rotate: [0, 180, 360],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 3,
+                ease: "easeInOut"
+              }}
+              className="absolute text-3xl sm:text-4xl opacity-20"
+              style={{
+                left: `${10 + i * 12}%`,
+                top: `${20 + (i % 4) * 20}%`,
+              }}
+            >
+              {icon}
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="max-w-7xl mx-auto text-center relative z-10 w-full">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-6 sm:space-y-8"
+          >
+            {/* Trust Badge */}
+            <motion.div
+              variants={itemVariants}
+              animate={floatAnimation}
+              className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-sm rounded-full mb-4 sm:mb-6 border border-white/10 shadow-lg"
+            >
+              <div className="flex items-center gap-2">
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="w-2 h-2 rounded-full bg-cyan-400"
+                />
+                <span className="text-cyan-300 font-medium text-sm sm:text-base">Global Supply Chain Leaders Since 2010</span>
+              </div>
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white leading-tight"
+            >
+              <span className="block text-2xl sm:text-3xl md:text-4xl opacity-90 mb-2 sm:mb-4">
+                Intelligent Supply Chain
+              </span>
+              <motion.span
+                animate={{
+                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
                 }}
-              />
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-[length:200%_auto] bg-clip-text text-transparent"
+              >
+                Optimization Platform
+              </motion.span>
+              <span className="block text-lg sm:text-xl md:text-2xl opacity-80 mt-2 sm:mt-4">
+                AI-Powered • Real-time • Sustainable
+              </span>
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={itemVariants}
+              className="text-lg sm:text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed"
+            >
+              Transform your supply chain with end-to-end visibility, predictive analytics, 
+              and automated logistics. Reduce costs by 40% while achieving 99.9% on-time delivery.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={containerVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <motion.div variants={itemVariants}>
+                <Link
+                  to="/contact"
+                  className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg md:text-xl transition-all duration-500 overflow-hidden shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50"
+                >
+                  <motion.div
+                    animate={pulseAnimation}
+                    className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  />
+                  <motion.div
+                    animate={{
+                      x: [0, 100, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"
+                  />
+                  <span className="relative z-10 flex items-center gap-2 sm:gap-3">
+                    <LocalShipping className="text-xl sm:text-2xl" />
+                    Get Free Supply Chain Assessment
+                    <motion.span
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                      className="inline-block"
+                    >
+                      →
+                    </motion.span>
+                  </span>
+                </Link>
+              </motion.div>
+
+              <motion.div variants={itemVariants}>
+                <Link
+                  to="/services"
+                  className="group relative inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white px-5 sm:px-7 md:px-9 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg md:text-xl transition-all duration-500 hover:bg-white/20 hover:shadow-xl hover:border-cyan-500/30"
+                >
+                  <span className="flex items-center gap-2 sm:gap-3">
+                    <Analytics className="text-xl sm:text-2xl" />
+                    View Solutions
+                  </span>
+                </Link>
+              </motion.div>
+            </motion.div>
+
+            {/* Live Stats */}
+            <motion.div
+              ref={statsRef}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-12 max-w-4xl mx-auto"
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="text-center p-3 sm:p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-500/30 transition-all duration-300"
+                >
+                  <div className="text-2xl sm:text-3xl mb-2">{stat.icon}</div>
+                  <motion.div
+                    className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2 bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
+                  >
+                    {stat.value}
+                  </motion.div>
+                  <div className="text-white/60 text-xs sm:text-sm font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <div className="flex flex-col items-center gap-2">
+            <div className="text-white/60 text-xs sm:text-sm animate-pulse">Discover Solutions</div>
+            <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-cyan-400/50 rounded-full flex justify-center">
+              <div className="w-1 h-3 sm:h-4 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full mt-2" />
+            </div>
+          </div>
+        </motion.div>
+      </motion.section>
+
+      {/* Core Services Section */}
+      <motion.section
+        ref={servicesRef}
+        style={{ y: servicesY }}
+        className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative"
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="text-center mb-10 sm:mb-12 md:mb-16"
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-4 border border-blue-500/30"
+            >
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              >
+                ⚡
+              </motion.div>
+              <span className="text-blue-400 font-medium text-sm sm:text-base">Core Solutions</span>
+            </motion.div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+              Comprehensive
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> Supply Chain </span>
+              Solutions
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              End-to-end supply chain optimization powered by cutting-edge technology
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {coreServices.map((service, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group relative"
+              >
+                <div className="relative h-full rounded-xl sm:rounded-2xl overflow-hidden">
+                  {/* Animated Background */}
+                  <motion.div
+                    animate={{
+                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "linear"
+                    }}
+                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[length:200%_auto]`}
+                  />
+                  
+                  {/* Card Content */}
+                  <div className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-8 h-full group-hover:border-cyan-500/30 transition-all duration-500">
+                    {/* Icon */}
+                    <motion.div
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center text-white mb-4 sm:mb-6`}
+                    >
+                      {service.icon}
+                    </motion.div>
+                    
+                    {/* Title & Description */}
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
+                        style={{
+                          backgroundImage: `linear-gradient(to right, ${service.gradient.split(' ')[1]}, ${service.gradient.split(' ')[3]})`
+                        }}>
+                      {service.title}
+                    </h3>
+                    
+                    <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">
+                      {service.description}
+                    </p>
+                    
+                    {/* Stats */}
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      transition={{ delay: index * 0.2 }}
+                      className="mb-4"
+                    >
+                      <div className={`text-sm font-semibold bg-gradient-to-r ${service.gradient} bg-clip-text text-transparent`}>
+                        {service.stats}
+                      </div>
+                    </motion.div>
+                    
+                    {/* Features */}
+                    <div className="mb-4">
+                      <ul className="space-y-2">
+                        {service.features.map((feature, idx) => (
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1 + idx * 0.05 }}
+                            className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm"
+                          >
+                            <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-500" />
+                            {feature}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    {/* CTA */}
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mt-4"
+                    >
+                      <Link
+                        to="/services"
+                        className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium group/link"
+                      >
+                        <span>Explore Details</span>
+                        <motion.svg
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                          className="w-3 h-3 sm:w-4 sm:h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </motion.svg>
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
+      </motion.section>
 
-        {/* Animated orbs with glow */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 min-[320px]:w-40 min-[320px]:h-40 sm:w-96 sm:h-96">
-            <div className="w-full h-full bg-gradient-to-r from-fuchsia-400/40 to-purple-500/40 rounded-full blur-2xl sm:blur-3xl animate-pulse-glow"></div>
-            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-fuchsia-400/20 to-purple-500/20 rounded-full animate-spin-slow"></div>
-          </div>
-          
-          <div className="absolute top-1/3 right-1/4 w-28 h-28 min-[320px]:w-36 min-[320px]:h-36 sm:w-80 sm:h-80">
-            <div className="w-full h-full bg-gradient-to-r from-rose-400/40 to-pink-500/40 rounded-full blur-2xl sm:blur-3xl animate-pulse-glow delay-1000"></div>
-          </div>
-          
-          <div className="absolute bottom-1/4 left-1/3 w-24 h-24 min-[320px]:w-32 min-[320px]:h-32 sm:w-72 sm:h-72">
-            <div className="w-full h-full bg-gradient-to-r from-violet-400/40 to-indigo-500/40 rounded-full blur-2xl sm:blur-3xl animate-pulse-glow delay-2000"></div>
+      {/* Advanced Features */}
+      <motion.section
+        ref={featuresRef}
+        style={{ opacity: featuresOpacity }}
+        className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-gray-900/50 to-blue-900/30"
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-10 sm:mb-12 md:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+              <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                Advanced
+              </span>{' '}
+              Supply Chain Technology
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              Leverage cutting-edge technologies for supply chain excellence
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {supplyChainFeatures.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="group"
+              >
+                <div className="relative h-full bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-8 group-hover:border-cyan-500/30 transition-all duration-500">
+                  {/* Icon */}
+                  <motion.div
+                    whileHover={{ rotate: 360, scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300`}
+                  >
+                    <div className={feature.color}>
+                      {feature.icon}
+                    </div>
+                  </motion.div>
+                  
+                  {/* Content */}
+                  <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold ${feature.color} mb-3`}>
+                    {feature.title}
+                  </h3>
+                  
+                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+                    {feature.description}
+                  </p>
+                  
+                  {/* Learn More */}
+                 <Link to="/404">
+  <motion.div
+    whileHover={{ x: 5 }}
+    className="mt-4 inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium cursor-pointer"
+  >
+    <span>Learn more</span>
+    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  </motion.div>
+</Link>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
+      </motion.section>
 
-        <div className="max-w-7xl mx-auto text-center relative z-10 w-full px-2">
-          <div className={`mb-4 min-[320px]:mb-6 sm:mb-8 mt-4 min-[320px]:mt-6 sm:mt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {/* Animated Main Heading */}
-            <h1 className="text-2xl min-[320px]:text-2xl min-[375px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 min-[320px]:mb-5 sm:mb-8 leading-tight drop-shadow-2xl">
-              <span className="block animate-slide-in-up text-xl min-[320px]:text-xl min-[375px]:text-2xl sm:text-3xl md:text-4xl bg-gradient-to-r from-fuchsia-400 via-rose-400 to-pink-400 bg-clip-text text-transparent">
-                AI Infrastructure
-              </span>
-              <span className="block mt-2 min-[320px]:mt-2 sm:mt-4">
-                <span className="bg-gradient-to-r from-fuchsia-400 via-rose-400 to-pink-400 bg-clip-text text-transparent animate-gradient-flow text-2xl min-[320px]:text-2xl min-[375px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                  Innovation Unleashed
-                </span>
-              </span>
-            </h1>
+      {/* Industry Solutions */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-10 sm:mb-12 md:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+              Industry-Specific
+              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"> Solutions </span>
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              Tailored supply chain strategies for different industry verticals
+            </p>
+          </motion.div>
 
-            {/* Enhanced Description with Typewriter Effect */}
-            <div className="text-sm min-[320px]:text-base sm:text-lg md:text-xl text-white/80 max-w-xs min-[320px]:max-w-sm sm:max-w-md lg:max-w-2xl mx-auto mb-6 min-[320px]:mb-7 sm:mb-12 leading-relaxed">
-              <p className="animate-typewriter overflow-hidden whitespace-nowrap border-r-4 border-fuchsia-400 pr-1">
-                Next-generation AI infrastructure with massive superclusters.
-              </p>
-              <p className="mt-2 min-[320px]:mt-2 sm:mt-3 text-white/60 text-xs min-[320px]:text-sm sm:text-base md:text-lg animate-fade-in delay-1000">
-                Enterprise-grade AI solutions with unparalleled performance and scalability.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            {industrySolutions.map((industry, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 p-5 sm:p-6 lg:p-8"
+              >
+                <div className="flex items-start gap-4 sm:gap-6">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className="flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-3xl"
+                  >
+                    {industry.icon}
+                  </motion.div>
+                  
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">{industry.name}</h3>
+                    
+                    {/* Challenges */}
+                    <div className="mb-4 sm:mb-6">
+                      <h4 className="text-cyan-400 text-sm sm:text-base font-semibold mb-2">Key Challenges Solved:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {industry.challenges.map((challenge, idx) => (
+                          <span key={idx} className="px-2 sm:px-3 py-1 bg-gray-800/50 rounded-full text-gray-300 text-xs sm:text-sm">
+                            {challenge}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    {/* Benefits */}
+                    <div>
+                      <h4 className="text-emerald-400 text-sm sm:text-base font-semibold mb-2">Achieved Benefits:</h4>
+                      <div className="space-y-2">
+                        {industry.benefits.map((benefit, idx) => (
+                          <div key={idx} className="flex items-center gap-2">
+                            <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-500" />
+                            <span className="text-gray-300 text-xs sm:text-sm">{benefit}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Enhanced CTA Buttons with Hover Effects */}
-            <div className="flex flex-col min-[320px]:flex-row gap-2 min-[320px]:gap-3 sm:gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-500 px-2">
+      {/* Trusted By Section */}
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-blue-900/30 to-purple-900/30">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-10 sm:mb-12 md:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+              Trusted by
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent"> Global </span>
+              Leaders
+            </h2>
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+              500+ companies across 80+ countries trust our supply chain solutions
+            </p>
+          </motion.div>
+
+          {/* Client Logos */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8"
+          >
+            {['🚚', '🏭', '🛒', '🏥', '🚗', '💻'].map((logo, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.1, y: -5 }}
+                className="flex items-center justify-center p-4 sm:p-6 bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-white/10 hover:border-cyan-500/30 transition-all duration-300"
+              >
+                <div className="text-3xl sm:text-4xl opacity-80">{logo}</div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <motion.section
+        ref={ctaRef}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      >
+        <motion.div
+          animate={{
+            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute inset-0 bg-gradient-to-r from-blue-600 via-cyan-600 to-purple-600 opacity-90 bg-[length:200%_auto]"
+        />
+        
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+        
+        {/* Animated Icons */}
+        <div className="absolute inset-0">
+          {['📦', '🚚', '⚡', '🔗'].map((icon, i) => (
+            <motion.div
+              key={i}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, Math.sin(i) * 20, 0],
+                rotate: [0, 360, 0]
+              }}
+              transition={{
+                duration: 6 + Math.random() * 3,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: "easeInOut"
+              }}
+              className="absolute text-3xl sm:text-4xl opacity-20"
+              style={{
+                left: `${15 + i * 25}%`,
+                top: `${30 + (i % 2) * 40}%`,
+              }}
+            >
+              {icon}
+            </motion.div>
+          ))}
+        </div>
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6"
+          >
+            Ready to Transform Your Supply Chain?
+          </motion.h2>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="text-lg sm:text-xl text-white/90 mb-6 sm:mb-8"
+          >
+            Schedule a free consultation and discover how we can optimize your operations
+          </motion.p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <Link
                 to="/contact"
-                className="group relative bg-gradient-to-r from-fuchsia-500 to-rose-600 hover:from-fuchsia-600 hover:to-rose-700 text-white px-4 min-[320px]:px-5 sm:px-8 md:px-10 lg:px-12 py-2 min-[320px]:py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl lg:rounded-2xl font-bold text-sm min-[320px]:text-base sm:text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-lg sm:hover:shadow-xl shadow-md shadow-fuchsia-500/30 overflow-hidden w-full min-[320px]:w-auto text-center animate-pulse-slow"
+                className="inline-flex items-center gap-3 bg-white text-blue-600 hover:bg-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 shadow-2xl hover:shadow-cyan-500/30"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-400/10 via-rose-400/10 to-pink-400/10 animate-shimmer"></div>
-                <span className="relative z-10 flex items-center gap-1 min-[320px]:gap-2 justify-center">
-                  🚀 Get AI Assessment
-                  <span className="group-hover:translate-x-1 transition-transform duration-300 animate-bounce-x">→</span>
-                </span>
-              </Link>
-
-              <Link
-                to="/services"
-                className="group relative bg-white/10 backdrop-blur-lg border border-white/30 hover:border-fuchsia-400/50 text-white hover:bg-white/20 px-4 min-[320px]:px-5 sm:px-6 md:px-8 lg:px-10 py-2 min-[320px]:py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl lg:rounded-2xl font-bold text-sm min-[320px]:text-base sm:text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-lg w-full min-[320px]:w-auto text-center"
-              >
-                <div className="absolute inset-0 rounded-lg sm:rounded-xl lg:rounded-2xl bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                <span className="relative flex items-center gap-1 min-[320px]:gap-2 justify-center">
-                  ⚡ Explore Solutions
-                  <span className="group-hover:rotate-90 transition-transform duration-300">📊</span>
-                </span>
-              </Link>
-            </div>
-
-            {/* Enhanced Stats with Counter Animation */}
-            <div className="grid grid-cols-3 gap-3 min-[320px]:gap-4 sm:gap-6 md:gap-8 mt-8 min-[320px]:mt-10 sm:mt-12 md:mt-16 max-w-xs min-[320px]:max-w-sm sm:max-w-md md:max-w-2xl mx-auto animate-fade-in-up delay-700 px-2">
-              {[
-                { number: '10K+', label: 'GPUs Deployed', color: 'from-fuchsia-400 to-rose-500' },
-                { number: '99.9%', label: 'Uptime SLA', color: 'from-emerald-400 to-teal-500' },
-                { number: '60%', label: 'Cost Savings', color: 'from-violet-400 to-purple-500' }
-              ].map((stat, index) => (
-                <div key={index} className="text-center group cursor-pointer">
-                  <div className={`text-base min-[320px]:text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-1 min-[320px]:mb-2 animate-count`}>
-                    {stat.number}
-                  </div>
-                  <div className="text-white/60 text-xs min-[320px]:text-sm font-medium leading-tight group-hover:text-white/80 transition-colors duration-300">
-                    {stat.label}
-                  </div>
-                  <div className="h-0.5 w-0 group-hover:w-full bg-gradient-to-r from-transparent via-fuchsia-500 to-transparent transition-all duration-500 mt-1 mx-auto"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Enhanced Scroll Indicator */}
-        <div className="absolute bottom-3 min-[320px]:bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-scroll-bounce">
-          <div className="flex flex-col items-center gap-2">
-            <div className="text-white/60 text-xs animate-pulse">Scroll</div>
-            <div className="w-4 h-6 min-[320px]:w-5 min-[320px]:h-8 sm:w-6 sm:h-10 border-2 border-fuchsia-400 rounded-full flex justify-center relative overflow-hidden">
-              <div className="w-1 h-1 min-[320px]:h-2 sm:h-3 bg-gradient-to-b from-fuchsia-400 to-rose-400 rounded-full mt-2 animate-scroll-dot"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-fuchsia-400/10 to-transparent animate-scroll-glow"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Innovation Slides Section with Parallax */}
-      <section 
-        ref={el => sectionRefs.current[1] = el}
-        className="py-8 min-[320px]:py-10 sm:py-12 md:py-16 lg:py-20 px-3 min-[320px]:px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-        style={parallaxStyle(0.3)}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/20 via-purple-900/20 to-rose-900/20"></div>
-        
-        {/* Floating elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-10 w-20 h-20 bg-gradient-to-r from-fuchsia-500/10 to-purple-500/10 rounded-full blur-xl animate-float-vertical"></div>
-          <div className="absolute bottom-1/4 right-10 w-16 h-16 bg-gradient-to-r from-rose-500/10 to-pink-500/10 rounded-full blur-xl animate-float-horizontal"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-6 min-[320px]:mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 min-[320px]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
-              <span className="bg-gradient-to-r from-fuchsia-400 to-rose-400 bg-clip-text text-transparent">
-                AI Infrastructure Innovations
-              </span>
-            </h2>
-            <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl text-gray-300 max-w-xs min-[320px]:max-w-sm sm:max-w-md md:max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
-              Next-Generation AI Infrastructure Solutions
-            </p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-4 min-[320px]:gap-5 sm:gap-6 md:gap-8 lg:gap-12">
-            {/* Main Slide with 3D effect */}
-            <div className="w-full lg:w-1/2 animate-fade-in-left">
-              <div className="relative h-48 min-[320px]:h-52 sm:h-64 md:h-72 lg:h-80 xl:h-96 rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden group perspective-1000">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-all duration-1000 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${slides[activeSlide].image})` }}
+                <motion.span
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-purple-900/60 to-fuchsia-900/60"></div>
-                </div>
-                
-                {/* 3D hover effect */}
-                <div className="absolute inset-0 transform group-hover:rotate-y-5 transition-transform duration-700">
-                  <div className="relative z-10 h-full flex items-center justify-center p-3 min-[320px]:p-4 sm:p-6 lg:p-8">
-                    <div className="text-center max-w-md mx-auto transform group-hover:scale-105 transition-transform duration-500">
-                      <div className={`text-2xl min-[320px]:text-3xl sm:text-4xl lg:text-5xl mb-2 min-[320px]:mb-3 sm:mb-4 animate-bounce ${slides[activeSlide].color.replace('from-', 'text-').replace('to-', '')}`}>
-                        {slides[activeSlide].icon}
-                      </div>
-                      <h3 className="text-lg min-[320px]:text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 min-[320px]:mb-3 sm:mb-4 leading-tight">
-                        {slides[activeSlide].title}
-                      </h3>
-                      <p className="text-gray-300 text-xs min-[320px]:text-sm sm:text-base lg:text-lg leading-relaxed">
-                        {slides[activeSlide].description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Glowing border */}
-                <div className="absolute inset-0 rounded-lg sm:rounded-xl lg:rounded-2xl border border-transparent group-hover:border-fuchsia-400/50 transition-all duration-500"></div>
-                <div className={`absolute inset-0 bg-gradient-to-br ${slides[activeSlide].color} opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
-              </div>
-            </div>
-
-            {/* Slide Navigation with Hover Effects */}
-            <div className="w-full lg:w-1/2 animate-fade-in-right">
-              <div className="grid grid-cols-2 min-[320px]:grid-cols-2 min-[425px]:grid-cols-3 gap-2 min-[320px]:gap-3 sm:gap-4 lg:gap-6 h-full">
-                {slides.map((slide, index) => (
-                  <button
-                    key={slide.id}
-                    onClick={() => setActiveSlide(index)}
-                    className={`relative overflow-hidden p-2 min-[320px]:p-3 sm:p-4 lg:p-5 rounded-lg sm:rounded-xl lg:rounded-2xl text-left transition-all duration-500 transform hover:scale-105 group min-h-[80px] min-[320px]:min-h-[90px] sm:min-h-[100px] lg:min-h-[120px] ${
-                      activeSlide === index
-                        ? `bg-gradient-to-br ${slide.color} text-white shadow-lg shadow-fuchsia-500/30 scale-105`
-                        : 'bg-white/10 backdrop-blur-sm text-gray-300 hover:bg-white/20 hover:shadow-lg'
-                    }`}
-                  >
-                    {/* Hover effect layer */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    
-                    {/* Background image with parallax */}
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
-                      style={{ 
-                        backgroundImage: `url(${slide.image})`,
-                        transform: activeSlide === index ? 'scale(1.1)' : 'scale(1)',
-                        transition: 'transform 0.5s ease'
-                      }}
-                    ></div>
-                    
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors duration-300"></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-center">
-                      <div className={`text-lg min-[320px]:text-xl sm:text-2xl lg:text-3xl mb-1 min-[320px]:mb-2 transition-transform duration-300 ${
-                        activeSlide === index ? 'animate-pulse scale-110' : 'group-hover:scale-110'
-                      }`}>
-                        {slide.icon}
-                      </div>
-                      <h4 className="font-semibold text-xs min-[320px]:text-sm sm:text-base lg:text-lg mb-1 leading-tight line-clamp-1 group-hover:text-white">
-                        {slide.title}
-                      </h4>
-                      <p className="text-xs opacity-80 line-clamp-2 leading-tight hidden min-[375px]:block group-hover:opacity-100">
-                        {slide.description}
-                      </p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Enhanced Slide Indicators */}
-          <div className="flex justify-center mt-4 min-[320px]:mt-5 sm:mt-6 lg:mt-8 space-x-1 min-[320px]:space-x-2 sm:space-x-3">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveSlide(index)}
-                className={`relative h-2 min-[320px]:h-2.5 sm:h-3 lg:h-4 rounded-full transition-all duration-500 overflow-hidden ${
-                  activeSlide === index
-                    ? 'w-8 min-[320px]:w-10 sm:w-12 lg:w-16'
-                    : 'w-2 min-[320px]:w-2.5 sm:w-3 lg:w-4 hover:w-4 min-[320px]:hover:w-5 sm:hover:w-6'
-                }`}
+                  🚀
+                </motion.span>
+                Get Free Assessment
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </Link>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-3 border-2 border-white text-white hover:bg-white/10 px-5 sm:px-7 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300"
               >
-                <div className={`absolute inset-0 rounded-full ${
-                  activeSlide === index
-                    ? `bg-gradient-to-r ${colors.accent}`
-                    : 'bg-gray-600 hover:bg-gray-500'
-                }`}></div>
-                {activeSlide === index && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
-                )}
-              </button>
-            ))}
+                <span>📞</span>
+                Schedule Demo
+              </Link>
+            </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Customers Section with Staggered Animation */}
-      <section 
-        ref={el => sectionRefs.current[2] = el}
-        className="py-8 min-[320px]:py-10 sm:py-12 md:py-16 lg:py-20 px-3 min-[320px]:px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-fuchsia-900/20 to-rose-900/30"></div>
-        
-        {/* Animated background grid */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-grid-white/10 bg-grid-16"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-6 min-[320px]:mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 min-[320box]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
-              <span className="bg-gradient-to-r from-fuchsia-400 to-rose-400 bg-clip-text text-transparent">
-                Trusted by Industry Leaders
-              </span>
-            </h2>
-            <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl text-gray-300 max-w-xs min-[320px]:max-w-sm sm:max-w-md md:max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
-              Discover how global enterprises leverage our AI infrastructure
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 min-[320px]:grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3 min-[320px]:gap-4 sm:gap-5 lg:gap-6 xl:gap-8">
-            {customerStories.map((story, index) => (
-              <div
-                key={story.id}
-                className="group relative bg-white/10 backdrop-blur-lg rounded-lg sm:rounded-xl lg:rounded-2xl p-3 min-[320px]:p-4 sm:p-5 lg:p-6 border border-white/20 hover:border-fuchsia-500/50 transition-all duration-500 transform hover:-translate-y-2 lg:hover:-translate-y-3 hover:shadow-2xl hover:shadow-fuchsia-500/20 overflow-hidden animate-stagger-fade"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                {/* Hover gradient effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${story.color} opacity-0 group-hover:opacity-20 transition-opacity duration-700`}></div>
-                
-                {/* Shimmer effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                
-                <div className="relative z-10">
-                  {/* Company Header with Animation */}
-                  <div className="flex flex-col min-[320px]:flex-row min-[320px]:items-center gap-2 min-[320px]:gap-3 sm:gap-4 mb-3 min-[320px]:mb-4 sm:mb-5">
-                    <div className="flex items-center gap-2 min-[320px]:gap-3 sm:gap-4">
-                      <div className="relative w-8 h-8 min-[320box]:w-9 min-[320px]:h-9 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-lg sm:rounded-xl bg-white/10 flex-shrink-0 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <span className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl xl:text-2xl group-hover:animate-spin-slow">
-                          {story.icon}
-                        </span>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-bold text-white text-sm min-[320px]:text-base sm:text-lg lg:text-xl truncate leading-tight group-hover:text-fuchsia-300 transition-colors duration-300">
-                          {story.company}
-                        </h3>
-                        <div className="flex items-center gap-1 min-[320px]:gap-2">
-                          <span className="text-gray-400 text-xs min-[320px]:text-sm leading-tight group-hover:text-white/70 transition-colors duration-300">
-                            {story.industry}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Story Content */}
-                  <h4 className="text-white font-semibold mb-2 min-[320px]:mb-3 sm:mb-4 leading-tight text-sm min-[320px]:text-base sm:text-lg lg:text-xl group-hover:text-fuchsia-300 transition-colors duration-300 line-clamp-2 min-h-[2.5rem]">
-                    {story.title}
-                  </h4>
-                  <p className="text-gray-300 text-xs min-[320px]:text-sm sm:text-base leading-relaxed mb-3 min-[320px]:mb-4 sm:mb-5 line-clamp-3 min-h-[3.5rem] group-hover:text-white/80 transition-colors duration-300">
-                    {story.description}
-                  </p>
-
-                  {/* Enhanced Read Story Link */}
-                  <Link
-                    to={story.link}
-                    className="inline-flex items-center gap-1 min-[320px]:gap-2 text-fuchsia-400 hover:text-rose-300 font-semibold text-xs min-[320px]:text-sm sm:text-base transition-all duration-300 group-hover:gap-2 lg:group-hover:gap-3 relative overflow-hidden py-1"
-                  >
-                    <span className="relative z-10 flex items-center gap-1 min-[320px]:gap-2">
-                      Read the story
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                    </span>
-                    <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-fuchsia-400 to-rose-400 group-hover:w-full transition-all duration-500"></div>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Services Section with Flip Animation */}
-      <section 
-        ref={el => sectionRefs.current[3] = el}
-        className="py-8 min-[320px]:py-10 sm:py-12 md:py-16 lg:py-20 px-3 min-[320px]:px-4 sm:px-6 lg:px-8 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-fuchsia-900/20 to-rose-900/30"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-6 min-[320px]:mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-            <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 min-[320px]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
-              <span className="bg-gradient-to-r from-fuchsia-400 to-rose-400 bg-clip-text text-transparent">
-                Our AI Services
-              </span>
-            </h2>
-            <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl text-gray-300 max-w-xs min-[320px]:max-w-sm sm:max-w-md md:max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed">
-              Comprehensive AI Infrastructure Solutions
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-[320px]:gap-5 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="group perspective-1000 relative overflow-hidden rounded-lg sm:rounded-xl lg:rounded-2xl p-4 min-[320px]:p-5 sm:p-6 lg:p-8 text-white transition-all duration-700 transform hover:-translate-y-2 lg:hover:-translate-y-3 hover:shadow-2xl hover:shadow-fuchsia-500/20 min-h-[200px] min-[320px]:min-h-[220px] sm:min-h-[250px] lg:min-h-[300px] animate-flip-in"
-                style={{ animationDelay: `${index * 300}ms` }}
-              >
-                {/* Front side */}
-                <div className="relative h-full transition-all duration-700 preserve-3d group-hover:rotate-y-180">
-                  <div className="absolute inset-0 backface-hidden">
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                      style={{ backgroundImage: `url(${service.image})` }}
-                    ></div>
-                    
-                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-90 group-hover:opacity-80 transition-opacity duration-500`}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-center p-4 min-[320px]:p-5 sm:p-6 lg:p-8">
-                      <div className="text-2xl min-[320px]:text-3xl sm:text-4xl lg:text-5xl mb-3 min-[320px]:mb-4 sm:mb-5 transition-transform duration-500 group-hover:scale-110">
-                        {service.icon}
-                      </div>
-                      <h3 className="text-lg min-[320px]:text-xl sm:text-2xl lg:text-3xl font-bold mb-2 min-[320px]:mb-3 sm:mb-4 leading-tight">
-                        {service.title}
-                      </h3>
-                      <p className="text-white/80 mb-4 min-[320px]:mb-5 sm:mb-6 lg:mb-8 leading-relaxed text-sm min-[320px]:text-base sm:text-lg lg:text-xl">
-                        {service.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Back side (flipped) */}
-                  <div className="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-gray-900 to-slate-900 p-4 min-[320px]:p-5 sm:p-6 lg:p-8">
-                    <div className="h-full flex flex-col justify-center items-center text-center">
-                      <div className="text-3xl min-[320px]:text-4xl sm:text-5xl lg:text-6xl mb-4 min-[320px]:mb-5 sm:mb-6">
-                        {service.icon}
-                      </div>
-                      <h3 className="text-xl min-[320px]:text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 min-[320px]:mb-4 sm:mb-5 text-white">
-                        {service.title}
-                      </h3>
-                      <p className="text-gray-300 mb-6 min-[320px]:mb-7 sm:mb-8 text-sm min-[320px]:text-base sm:text-lg">
-                        Get started with our comprehensive solutions
-                      </p>
-                      <Link
-                        to={service.link}
-                        className="inline-flex items-center gap-2 bg-gradient-to-r from-fuchsia-500 to-rose-600 hover:from-fuchsia-600 hover:to-rose-700 px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320px]:py-2.5 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-sm min-[320px]:text-base sm:text-lg"
-                      >
-                        Learn More
-                        <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Final CTA Section */}
-      <section 
-        ref={el => sectionRefs.current[4] = el}
-        className="py-8 min-[320px]:py-10 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-r from-fuchsia-600 via-purple-600 to-rose-700 text-white relative overflow-hidden"
-      >
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-to-r from-white/10 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-l from-white/10 to-transparent rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-        
-        <div className="max-w-4xl mx-auto text-center px-3 min-[320px]:px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-xl min-[320px]:text-2xl sm:text-3xl md:text-4xl font-bold mb-2 min-[320px]:mb-3 sm:mb-4 animate-fade-in-up leading-tight">
-            <span className="bg-gradient-to-r from-white via-rose-100 to-pink-200 bg-clip-text text-transparent">
-              Ready to Transform Your AI Infrastructure?
-            </span>
-          </h2>
-          <p className="text-sm min-[320px]:text-base sm:text-lg lg:text-xl mb-4 min-[320px]:mb-5 sm:mb-6 lg:mb-8 opacity-90 animate-fade-in-up delay-200 leading-relaxed">
-            Let's build the future of AI together
-          </p>
-          <Link 
-            to="/contact" 
-            className="group relative inline-block bg-white text-fuchsia-600 hover:bg-gray-100 px-4 min-[320px]:px-5 sm:px-6 lg:px-8 py-2 min-[320box]:py-2.5 sm:py-3 lg:py-4 rounded-lg sm:rounded-xl font-semibold text-sm min-[320px]:text-base sm:text-lg md:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl animate-float backdrop-blur-sm overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            <span className="relative z-10 flex items-center justify-center gap-2">
-              🚀 Start Your AI Journey Today
-              <span className="group-hover:rotate-180 transition-transform duration-500">⚡</span>
-            </span>
-          </Link>
           
-          {/* Additional floating elements */}
-          <div className="mt-8 min-[320px]:mt-10 sm:mt-12 flex justify-center space-x-4">
-            {['🤖', '⚡', '🔗', '☁️'].map((icon, index) => (
-              <div
-                key={index}
-                className="text-2xl animate-bounce"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                {icon}
+          {/* Quick Info */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-6 sm:mt-8"
+          >
+            <div className="inline-flex flex-wrap items-center justify-center gap-4 text-sm text-white/70">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span>Free Consultation</span>
               </div>
-            ))}
-          </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span>30-Day Implementation</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                <span>24/7 Support</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Enhanced CSS Animations */}
       <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes typewriter {
-          from { width: 0; }
-          to { width: 100%; }
-        }
-
-        @keyframes gradientFlow {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-
-        @keyframes gradientPan {
-          0% {
-            background-position: 0% 0%;
-          }
-          100% {
-            background-position: 100% 100%;
-          }
-        }
-
-        @keyframes pulseGlow {
-          0%, 100% {
-            opacity: 0.4;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.6;
-            transform: scale(1.05);
-          }
-        }
-
-        @keyframes spinSlow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes floatParticle {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-          }
-          25% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          50% {
-            transform: translateY(-10px) translateX(-10px);
-          }
-          75% {
-            transform: translateY(-30px) translateX(5px);
-          }
-        }
-
-        @keyframes floatVertical {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-
-        @keyframes floatHorizontal {
-          0%, 100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(20px);
-          }
-        }
-
-        @keyframes count {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes scrollBounce {
-          0%, 100% {
-            transform: translateY(0) translateX(-50%);
-          }
-          50% {
-            transform: translateY(10px) translateX(-50%);
-          }
-        }
-
-        @keyframes scrollDot {
-          0% {
-            transform: translateY(0);
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(20px);
-            opacity: 0;
-          }
-        }
-
-        @keyframes scrollGlow {
-          0%, 100% {
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        @keyframes bounceX {
-          0%, 100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(5px);
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            background-position: -200px 0;
-          }
-          100% {
-            background-position: calc(200px + 100%) 0;
-          }
-        }
-
-        @keyframes staggerFade {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes flipIn {
-          from {
-            opacity: 0;
-            transform: rotateY(90deg) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: rotateY(0) scale(1);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
-          }
-        }
-
-        /* Utility classes */
-        .animate-typewriter {
-          animation: typewriter 2s steps(40) 1s 1 normal both;
-        }
-
-        .animate-gradient-flow {
-          background-size: 200% 200%;
-          animation: gradientFlow 3s ease infinite;
-        }
-
-        .animate-gradient-pan {
-          background-size: 200% 200%;
-          animation: gradientPan 15s linear infinite;
-        }
-
-        .animate-pulse-glow {
-          animation: pulseGlow 3s ease-in-out infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spinSlow 20s linear infinite;
-        }
-
-        .animate-float-particle {
-          animation: floatParticle 15s ease-in-out infinite;
-        }
-
-        .animate-float-vertical {
-          animation: floatVertical 8s ease-in-out infinite;
-        }
-
-        .animate-float-horizontal {
-          animation: floatHorizontal 10s ease-in-out infinite;
-        }
-
-        .animate-count {
-          animation: count 1s ease-out forwards;
-        }
-
-        .animate-scroll-bounce {
-          animation: scrollBounce 2s ease-in-out infinite;
-        }
-
-        .animate-scroll-dot {
-          animation: scrollDot 2s ease-in-out infinite;
-        }
-
-        .animate-scroll-glow {
-          animation: scrollGlow 2s ease-in-out infinite;
-        }
-
-        .animate-bounce-x {
-          animation: bounceX 1s ease-in-out infinite;
-        }
-
-        .animate-shimmer {
-          background-size: 200px 100%;
-          animation: shimmer 2s infinite linear;
-        }
-
-        .animate-stagger-fade {
-          animation: staggerFade 0.6s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-flip-in {
-          animation: flipIn 0.8s ease-out forwards;
-          opacity: 0;
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-
-        .animate-in-view {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        /* 3D Transform utilities */
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-
-        .preserve-3d {
-          transform-style: preserve-3d;
-        }
-
-        .backface-hidden {
-          backface-visibility: hidden;
-        }
-
-        .rotate-y-180 {
-          transform: rotateY(180deg);
-        }
-
-        .bg-grid-white\/10 {
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.1)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
-        }
-
-        .bg-grid-16 {
-          background-size: 16px 16px;
-        }
-
-        /* Scroll animation triggers */
-        @keyframes slideInUp {
-          from {
-            opacity: 0;
-            transform: translateY(100px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-slide-in-up {
-          animation: slideInUp 1s ease-out;
-        }
-
-        /* Delay utilities */
-        .delay-100 {
-          animation-delay: 100ms;
-        }
-        .delay-200 {
-          animation-delay: 200ms;
-        }
-        .delay-300 {
-          animation-delay: 300ms;
-        }
-        .delay-500 {
-          animation-delay: 500ms;
-        }
-        .delay-700 {
-          animation-delay: 700ms;
-        }
-        .delay-1000 {
-          animation-delay: 1000ms;
-        }
-        .delay-2000 {
-          animation-delay: 2000ms;
-        }
-
-        /* Line clamp utilities */
-        .line-clamp-1 {
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-
-        .line-clamp-3 {
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
+        /* Smooth scrolling */
+        html {
+          scroll-behavior: smooth;
         }
 
         /* Custom scrollbar */
@@ -1030,17 +948,63 @@ const ExploreServices = () => {
         }
 
         ::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 5px;
+          background: rgba(15, 23, 42, 0.8);
+          backdrop-filter: blur(10px);
         }
 
         ::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #d946ef, #ec4899);
+          background: linear-gradient(to bottom, #3b82f6, #06b6d4, #8b5cf6);
           border-radius: 5px;
+          border: 2px solid rgba(15, 23, 42, 0.8);
         }
 
         ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(to bottom, #c026d3, #db2777);
+          background: linear-gradient(to bottom, #2563eb, #0891b2, #7c3aed);
+        }
+
+        /* Selection color */
+        ::selection {
+          background: rgba(6, 182, 212, 0.3);
+          color: white;
+          backdrop-filter: blur(10px);
+        }
+
+        /* Smooth transitions */
+        * {
+          transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Gradient text animation */
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        .animate-gradient {
+          background: linear-gradient(45deg, #06b6d4, #3b82f6, #8b5cf6);
+          background-size: 200% 200%;
+          animation: gradient 5s ease infinite;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+
+        /* Pulse glow */
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.5); }
+          50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.8); }
+        }
+
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
         }
       `}</style>
     </div>
