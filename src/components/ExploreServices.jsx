@@ -597,7 +597,7 @@ const ExploreServices = () => {
 
       
       {/* Industry Solutions */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative">
+      <section className="py-12 mt-4 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
