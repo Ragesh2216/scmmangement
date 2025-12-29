@@ -1,7 +1,7 @@
 {
-  "name": "your-project",
+  "name": "supplychain management",
   "version": "1.0.0",
-  "homepage": "https://Ragesh2216.github.io/ scmmangement/",
+  
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -12,16 +12,16 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12">
+    <footer className="bg-gray-100 text-gray-700 py-12">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-gray-700">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 pb-8 border-b border-gray-300">
         
         {/* Company Info */}
         <div className="lg:col-span-1 text-center md:text-left">
           <div className="flex justify-center md:justify-start">
-            <h1 className="text-4xl lg:text-5xl font-bold text-blue-500 mb-4">Stackly</h1>
+            <h1 className="text-4xl lg:text-5xl font-bold text-blue-400 mb-4">Stackly</h1>
           </div>
-          <p className="text-sm text-gray-400 leading-relaxed mb-4">
+          <p className="text-sm text-gray-600 leading-relaxed mb-4">
             Your trusted partner for end-to-end supply chain solutions. We deliver cutting-edge logistics, inventory management, supplier network integration, and supply chain optimization services.
           </p>
 
@@ -29,26 +29,26 @@ const Footer = () => {
           <div className="flex justify-center md:justify-start space-x-4">
             {[
               { 
-                icon: <FacebookIcon className="hover:text-green-400 transition-colors duration-200" />, 
+                icon: <FacebookIcon className="hover:text-blue-500 transition-colors duration-200" />, 
                 label: "Facebook"
               },
               { 
-                icon: <LinkedInIcon className="hover:text-yellow-600 transition-colors duration-200" />, 
+                icon: <LinkedInIcon className="hover:text-blue-600 transition-colors duration-200" />, 
                 label: "LinkedIn"
               },
               { 
-                icon: <GitHubIcon className="hover:text-red-800 transition-colors duration-200" />, 
+                icon: <GitHubIcon className="hover:text-gray-800 transition-colors duration-200" />, 
                 label: "GitHub"
               },
               { 
-                icon: <InstagramIcon className="hover:text-green-500 transition-colors duration-200" />, 
+                icon: <InstagramIcon className="hover:text-pink-500 transition-colors duration-200" />, 
                 label: "Instagram"
               }
             ].map((social, index) => (
               <Link
                 key={index}
                 to="/404"
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors duration-200"
+                className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center hover:bg-gray-300 transition-colors duration-200 text-gray-600"
                 aria-label={social.label}
                 title={social.label}
               >
@@ -60,7 +60,7 @@ const Footer = () => {
 
         {/* SCM Services */}
         <div className="lg:col-span-1 text-center md:text-left">
-          <h5 className="text-white text-lg font-semibold mb-6">SCM Services</h5>
+          <h5 className="text-gray-800 text-lg font-semibold mb-6">SCM Services</h5>
           <ul className="space-y-3">
             {[
               { label: "Logistics Management", url: "/404" },
@@ -71,7 +71,7 @@ const Footer = () => {
               <li key={index}>
                 <Link 
                   to={service.url} 
-                  className="text-gray-400 hover:text-green-400 transition-colors duration-200 text-sm font-normal block py-1"
+                  className="text-gray-600 hover:text-blue-500 transition-colors duration-200 text-sm font-normal block py-1"
                 >
                   {service.label}
                 </Link>
@@ -82,7 +82,7 @@ const Footer = () => {
         
         {/* Quick Links */}
         <div className="lg:col-span-1 text-center md:text-left">
-          <h5 className="text-white text-lg font-semibold mb-6">Quick Links</h5>
+          <h5 className="text-gray-800 text-lg font-semibold mb-6">Quick Links</h5>
           <ul className="space-y-3">
             {[
               { label: "Home", url: "/" },
@@ -94,7 +94,7 @@ const Footer = () => {
               <li key={index}>
                 <Link 
                   to={link.url} 
-                  className="text-gray-400 hover:text-green-400 transition-colors duration-200 text-sm font-normal block py-1"
+                  className="text-gray-600 hover:text-blue-500 transition-colors duration-200 text-sm font-normal block py-1"
                 >
                   {link.label}
                 </Link>
@@ -105,37 +105,37 @@ const Footer = () => {
 
         {/* Contact Info */}
         <div className="lg:col-span-1 text-center md:text-left">
-          <h5 className="text-white text-lg font-semibold mb-6">Get In Touch</h5>
+          <h5 className="text-gray-800 text-lg font-semibold mb-6">Get In Touch</h5>
           <div className="space-y-4">
             <div className="flex flex-col items-center md:items-start md:flex-row md:space-x-3">
-              <LocationOnIcon className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0 mb-2 md:mb-0" />
+              <LocationOnIcon className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0 mb-2 md:mb-0" />
               <div className="text-center md:text-left">
-                <p className="text-sm text-gray-300 font-medium">Logistics Hub</p>
-                <p className="text-sm text-gray-400">MMR Complex</p>
-                <p className="text-sm text-gray-400">Salem, Tamil Nadu</p>
-                <p className="text-sm text-gray-400">India - 636008</p>
+                <p className="text-sm text-gray-700 font-medium">Logistics Hub</p>
+                <p className="text-sm text-gray-600">MMR Complex</p>
+                <p className="text-sm text-gray-600">Salem, Tamil Nadu</p>
+                <p className="text-sm text-gray-600">India - 636008</p>
               </div>
             </div>
             
             <div className="flex justify-center md:justify-start">
               <Link
                 to="/404"
-                className="text-green-400 hover:text-green-300 underline text-sm"
+                className="text-blue-500 hover:text-blue-600 underline text-sm"
               >
                 View on Google Maps
               </Link>
             </div>
             
             <div className="flex justify-center md:justify-start items-center space-x-3">
-              <PhoneIcon className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <Link to="/404" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
+              <PhoneIcon className="w-5 h-5 text-blue-500 flex-shrink-0" />
+              <Link to="/404" className="text-sm text-gray-600 hover:text-blue-500 transition-colors duration-200">
                 +91 12345 67890
               </Link>
             </div>
             
             <div className="flex justify-center md:justify-start items-center space-x-3">
-              <EmailIcon className="w-5 h-5 text-green-400 flex-shrink-0" />
-              <Link to="/404" className="text-sm text-gray-400 hover:text-green-400 transition-colors duration-200">
+              <EmailIcon className="w-5 h-5 text-blue-500 flex-shrink-0" />
+              <Link to="/404" className="text-sm text-gray-600 hover:text-blue-500 transition-colors duration-200">
                 info@supplychainpro.com
               </Link>
             </div>
@@ -148,7 +148,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           {/* Copyright */}
           <div className="text-center md:text-left">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-600">
               &copy; {currentYear} SupplyChain Pro. All rights reserved.
             </p>
           </div>
@@ -164,7 +164,7 @@ const Footer = () => {
               <Link
                 key={index}
                 to={link.url}
-                className="text-gray-400 hover:text-green-400 transition-colors duration-200"
+                className="text-gray-600 hover:text-blue-500 transition-colors duration-200"
               >
                 {link.label}
               </Link>
@@ -173,7 +173,7 @@ const Footer = () => {
         </div>
 
         {/* Additional Info */}
-        <div className="mt-6 pt-6 border-t border-gray-800 text-center">
+        <div className="mt-6 pt-6 border-t border-gray-300 text-center">
           <p className="text-xs text-gray-500">
             SupplyChain Pro - Optimizing global supply chains through innovative logistics solutions. 
             ISO 9001:2015 Certified • Logistics Partner • Global Supply Chain Network
