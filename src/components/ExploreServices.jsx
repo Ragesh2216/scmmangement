@@ -117,6 +117,52 @@ const ExploreServices = () => {
       stats: 'Real-time Monitoring'
     }
   ];
+  const aiInfrastructureFeatures = [
+  {
+    title: "AI Superclusters",
+    description: "Massive-scale GPU clusters for training large language models",
+    icon: "⚡",
+    color: "text-yellow-400",
+    points: [
+      "10K+ NVIDIA H100 GPUs",
+      "Petabyte-scale storage",
+      "Custom ML frameworks"
+    ]
+  },
+  {
+    title: "MLOps Platform",
+    description: "End-to-end machine learning operations and lifecycle management",
+    icon: "🤖",
+    color: "text-emerald-400",
+    points: [
+      "Auto-scaling training jobs",
+      "Model versioning & registry",
+      "A/B testing deployment"
+    ]
+  },
+  {
+    title: "Vector Databases",
+    description: "High-performance databases for AI embeddings and semantic search",
+    icon: "🗄️",
+    color: "text-cyan-400",
+    points: [
+      "Millisecond query latency",
+      "Billion+ vector capacity",
+      "Real-time indexing"
+    ]
+  },
+  {
+    title: "Edge AI",
+    description: "Distributed AI inference at the network edge",
+    icon: "🌐",
+    color: "text-pink-400",
+    points: [
+      "Low-latency inference",
+      "Federated learning",
+      "Privacy-preserving AI"
+    ]
+  }
+];
 
   const supplyChainFeatures = [
     {
@@ -595,82 +641,103 @@ const ExploreServices = () => {
         </div>
       </motion.section>
 
-      {/* Advanced Features */}
-      <motion.section
-        ref={featuresRef}
-        style={{ opacity: featuresOpacity }}
-        className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-gray-900/50 to-blue-900/30"
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-12 md:mb-16"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
-              <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                Advanced
-              </span>{' '}
-              Supply Chain Technology
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-              Leverage cutting-edge technologies for supply chain excellence
-            </p>
-          </motion.div>
+      {/* Advanced AI Infrastructure */}
+<motion.section
+  ref={featuresRef}
+  style={{ opacity: featuresOpacity }}
+  className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative bg-gradient-to-b from-gray-900/50 to-purple-900/30"
+>
+  <div className="max-w-7xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="text-center mb-10 sm:mb-12 md:mb-16"
+    >
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
+        <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Advanced AI
+        </span>{' '}
+        Infrastructure Solutions
+      </h2>
+      <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+        Next-generation infrastructure for machine learning and AI workloads
+      </p>
+    </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {supplyChainFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group"
-              >
-                <div className="relative h-full bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-8 group-hover:border-cyan-500/30 transition-all duration-500">
-                  {/* Icon */}
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                    className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300`}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+      {aiInfrastructureFeatures.map((feature, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1, duration: 0.6 }}
+          viewport={{ once: true, amount: 0.3 }}
+          whileHover={{ y: -10, scale: 1.02 }}
+          className="group"
+        >
+          <div className="relative h-full bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl sm:rounded-2xl p-5 sm:p-6 lg:p-8 group-hover:border-purple-500/30 transition-all duration-500 overflow-hidden">
+            {/* Background gradient on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/0 via-purple-900/0 to-pink-900/0 group-hover:from-purple-900/10 group-hover:via-purple-900/5 group-hover:to-pink-900/10 transition-all duration-500"></div>
+            
+            {/* Icon */}
+            <motion.div
+              whileHover={{ rotate: 360, scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+              className={`relative z-10 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-all duration-300`}
+            >
+              <div className={`text-2xl sm:text-3xl ${feature.color}`}>
+                {feature.icon}
+              </div>
+            </motion.div>
+            
+            {/* Content */}
+            <div className="relative z-10">
+              <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold ${feature.color} mb-3`}>
+                {feature.title}
+              </h3>
+              
+              <p className="text-gray-300 leading-relaxed text-sm sm:text-base mb-4">
+                {feature.description}
+              </p>
+              
+              {/* Feature Points */}
+              <ul className="space-y-2 mb-6">
+                {feature.points.map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                    <span className="text-purple-400 mt-1">✓</span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Learn More Link */}
+              <Link to="/404">
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  className="inline-flex items-center gap-2 text-purple-400 hover:text-pink-300 text-xs sm:text-sm font-medium cursor-pointer group/link"
+                >
+                  <span>Explore technology</span>
+                  <motion.svg 
+                    className="w-3 h-3 sm:w-4 sm:h-4"
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    animate={{ x: [0, 3, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
                   >
-                    <div className={feature.color}>
-                      {feature.icon}
-                    </div>
-                  </motion.div>
-                  
-                  {/* Content */}
-                  <h3 className={`text-lg sm:text-xl lg:text-2xl font-bold ${feature.color} mb-3`}>
-                    {feature.title}
-                  </h3>
-                  
-                  <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                    {feature.description}
-                  </p>
-                  
-                  {/* Learn More */}
-                 <Link to="/404">
-  <motion.div
-    whileHover={{ x: 5 }}
-    className="mt-4 inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-xs sm:text-sm font-medium cursor-pointer"
-  >
-    <span>Learn more</span>
-    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-    </svg>
-  </motion.div>
-</Link>
-                </div>
-              </motion.div>
-            ))}
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </motion.svg>
+                </motion.div>
+              </Link>
+            </div>
           </div>
-        </div>
-      </motion.section>
-
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</motion.section>
       {/* Industry Solutions */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 relative">
         <div className="max-w-7xl mx-auto">
