@@ -330,7 +330,6 @@ const ExploreServices = () => {
                   transition={{ duration: 1.5, repeat: Infinity }}
                   className="w-2 h-2 rounded-full bg-cyan-400"
                 />
-                <span className="text-cyan-300 font-medium text-sm sm:text-base">Global Supply Chain Leaders Since 2010</span>
               </div>
             </motion.div>
 
@@ -448,19 +447,7 @@ const ExploreServices = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <div className="text-white/60 text-xs sm:text-sm animate-pulse">Discover Solutions</div>
-            <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-cyan-400/50 rounded-full flex justify-center">
-              <div className="w-1 h-3 sm:h-4 bg-gradient-to-b from-cyan-400 to-cyan-600 rounded-full mt-2" />
-            </div>
-          </div>
-        </motion.div>
+       
       </motion.section>
 
       {/* Core Services Section */}

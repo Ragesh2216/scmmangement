@@ -296,9 +296,7 @@ const Home = () => {
                     Intelligence
                   </motion.span>
                 </span>
-                <span className="block text-lg sm:text-xl md:text-2xl opacity-80">
-                  Powered by AI & Automation
-                </span>
+                
               </motion.h1>
 
               <motion.p
@@ -308,7 +306,7 @@ const Home = () => {
                 Transform your logistics operations with AI-driven optimization, real-time visibility, 
                 and sustainable supply chain solutions.
                 <span className="block mt-3 text-white/60 text-base sm:text-lg">
-                  Serving 80+ countries with 99.5% on-time delivery and 45% average cost reduction.
+                  
                 </span>
               </motion.p>
             </motion.div>
@@ -545,159 +543,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Services Section - Enhanced */}
-      <motion.section
-        ref={servicesRef}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true, amount: 0.3 }}
-        className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 relative"
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
-          >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full mb-4 border border-blue-500/30"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="text-blue-400"
-              >
-                ⚡
-              </motion.div>
-              <span className="text-blue-400 font-medium">Core Solutions</span>
-            </motion.div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Comprehensive
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"> Supply Chain </span>
-              Services
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
-              End-to-end logistics and operations solutions powered by cutting-edge technology
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                viewport={{ once: true, amount: 0.3 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group relative"
-              >
-                <div className="relative h-full rounded-2xl overflow-hidden">
-                  {/* Animated Gradient Background */}
-                  <motion.div
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{
-                      duration: 5,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-[length:200%_auto]`}
-                  />
-                  
-                  {/* Card Content */}
-                  <div className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 sm:p-8 h-full group-hover:border-cyan-500/30 transition-all duration-500">
-                    <motion.div
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center text-2xl mb-6 shadow-lg`}
-                    >
-                      {service.icon}
-                    </motion.div>
-                    
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text transition-all duration-300"
-                        style={{
-                          backgroundImage: `linear-gradient(to right, ${service.gradient.split(' ')[1]}, ${service.gradient.split(' ')[3]})`
-                        }}>
-                      {service.title}
-                    </h3>
-                    
-                    <p className="text-cyan-400 font-semibold mb-3 text-sm sm:text-base">{service.subtitle}</p>
-                    
-                    <p className="text-gray-300 mb-4 leading-relaxed text-sm sm:text-base">
-                      {service.description}
-                    </p>
-                    
-                    {/* Features List */}
-                    <div className="mb-4">
-                      <h4 className="text-white/80 text-sm font-semibold mb-2">Key Features:</h4>
-                      <ul className="space-y-1">
-                        {service.features.map((feature, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.1 + idx * 0.05 }}
-                            className="flex items-center gap-2 text-gray-400 text-sm"
-                          >
-                            <div className="w-1 h-1 rounded-full bg-cyan-500" />
-                            {feature}
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    {/* Clients */}
-                    <div className="mt-4 pt-4 border-t border-gray-700/50">
-                      <p className="text-white/70 text-sm mb-2">Trusted by:</p>
-                      <div className="flex items-center gap-2">
-                        {service.clients.map((client, idx) => (
-                          <motion.span
-                            key={idx}
-                            whileHover={{ scale: 1.1 }}
-                            className="px-2 py-1 bg-white/5 rounded text-xs text-gray-400"
-                          >
-                            {client}
-                          </motion.span>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    {/* Animated Button */}
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="mt-6"
-                    >
-                      <Link
-                        to="/404"
-                        className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm sm:text-base font-medium group/link"
-                      >
-                        <span>Explore Service Details</span>
-                        <motion.svg
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </motion.svg>
-                      </Link>
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+      
 
       {/* Why Choose Us Section */}
       <motion.section
